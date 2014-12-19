@@ -14,22 +14,41 @@ if (Meteor.isClient) {
     });
   };
 
+  Template.result.helpers({
+    isWinner: function (team, winner) {
+      return team === winner ? 'winner' : '';
+    }
+  });
+
   Template.result.events({
     "click .delete-button": function () {
       Results.remove(this._id);
     },
     "change .result-container, click .team-container": function (event, template) {
+      var score1 = template.$('[name="score1"]').val(),
+        score2 = template.$('[name="score2"]').val(),
+        team1Won = '',
+        team2Won = '';
+
+      if (score1 > score2) {
+        team1Won = 'winner';
+      } else if (score2 > score1) {
+        team2Won = 'winner';
+      }
+
       Results.update(this._id, {$set: {
         date: template.$('[name="date"]').val(),
         team1: {
           player1: template.$('.selected[data-name="team[0]player[0]"]').html(),
           player2: template.$('.selected[data-name="team[0]player[1]"]').html(),
-          score: template.$('[name="score1"]').val()
+          score: score1,
+          won: team1Won
         },
         team2: {
           player1: template.$('.selected[data-name="team[1]player[0]"]').html(),
           player2: template.$('.selected[data-name="team[1]player[1]"]').html(),
-          score: template.$('[name="score2"]').val()
+          score: score2,
+          won: team2Won
         }
       }});
     }
@@ -45,7 +64,7 @@ if (Meteor.isClient) {
   });
 
   Template.playerButtons.events({
-    "click .btn-group": function (event, template) {
+    "click .players-container": function (event, template) {
       template.$('.player').removeClass('selected');
       event.target.classList.add('selected');
     }
@@ -61,12 +80,14 @@ if (Meteor.isClient) {
         team1: {
           player1: players[0].name,
           player2: players[1].name,
-          score: 0
+          score: 0,
+          won: ''
         },
         team2: {
           player1: players[2].name,
           player2: players[3].name,
-          score: 0
+          score: 0,
+          won: ''
         }
       });
     }

@@ -1,15 +1,53 @@
+body {
+	background-color: rgb(229, 229, 229);
+}
+
+#add-button-container {
+	text-align: center;
+}
+
+#addButton {
+	margin: 20px 0;
+	color: #fff;
+	background-color: #337ab7;
+}
+
+#results-container {
+	padding: 0 20px;
+}
+
+.result-container {
+	margin-bottom: 20px;
+	border: 1px solid #d8d8d8;
+	border-bottom-width: 2px;
+}
+
 .delete-button {
 	position: absolute;
-	top: 8px;
-	right: 10px;
+	top: 10px;
+	right: 12px;
+}
+
+.player {
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 
 .player.selected {
-	color: #333;
-	background-color: #e6e6e6;
-	border-color: #adadad;
+	color: #fff;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+}
+
+.player.selected:hover {
+	background-color: #449d44;
+	border-color: #398439;
+}
+
+.players-container {
+	margin: 8px 0;
 }
 
 .date-score-container, .team-container {
-	margin: 10px 0;
+	margin: 8px 0;
 }
