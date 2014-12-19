@@ -3,3 +3,13 @@
 	top: 8px;
 	right: 10px;
 }
+
+.player.selected {
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+}
+
+.date-score-container, .team-container {
+	margin: 10px 0;
+}

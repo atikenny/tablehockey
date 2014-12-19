@@ -13,34 +13,41 @@ if (Meteor.isClient) {
       pickTime: false
     });
   };
-  
-  Template.result.helpers({
-    allPlayers: function () {
-      return Players.find();
-    },
-    isChecked: function (currentPlayer, selectedPlayer) {
-      return currentPlayer === selectedPlayer;
-    }
-  });
-  
+
   Template.result.events({
     "click .delete-button": function () {
       Results.remove(this._id);
     },
-    "change .result-container": function (event, template) {
+    "change .result-container, click .team-container": function (event, template) {
       Results.update(this._id, {$set: {
         date: template.$('[name="date"]').val(),
         team1: {
-          player1: template.$('[name="team[0]player[0]"]:checked').val(),
-          player2: template.$('[name="team[0]player[1]"]:checked').val(),
+          player1: template.$('.selected[data-name="team[0]player[0]"]').html(),
+          player2: template.$('.selected[data-name="team[0]player[1]"]').html(),
           score: template.$('[name="score1"]').val()
         },
         team2: {
-          player1: template.$('[name="team[1]player[0]"]:checked').val(),
-          player2: template.$('[name="team[1]player[1]"]:checked').val(),
+          player1: template.$('.selected[data-name="team[1]player[0]"]').html(),
+          player2: template.$('.selected[data-name="team[1]player[1]"]').html(),
           score: template.$('[name="score2"]').val()
         }
       }});
+    }
+  });
+
+  Template.playerButtons.helpers({
+    allPlayers: function () {
+      return Players.find();
+    },
+    isSelected: function (currentPlayer, selectedPlayer) {
+      return currentPlayer === selectedPlayer ? 'selected' : '';
+    }
+  });
+
+  Template.playerButtons.events({
+    "click .btn-group": function (event, template) {
+      template.$('.player').removeClass('selected');
+      event.target.classList.add('selected');
     }
   });
   

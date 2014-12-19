@@ -2,68 +2,68 @@
 	<title>tablehockey.com</title>
 </head>
 <body>
-  {{> addButton}}
+	{{> addButton}}
 	{{> results}}
 </body>
 
 <template name="results">
 	<div id="results-container">
-    <form id="results-form">
-      <ul class="list-group">
-        {{#each results}}
-        {{> result}}
-        {{/each}}
-      </ul>
-    </form>
+		<form id="results-form">
+			<ul class="list-group">
+				{{#each results}}
+				{{> result}}
+				{{/each}}
+			</ul>
+		</form>
 	</div>
 </template>
 
 <template name="result">
-  <li class="result-container list-group-item">
-  	<form class="row">
-	    <div class="date col-xs-6 col-md-4">
-	      <div class="input-group datetimepicker">
-		    <input type="text" name="date" class="form-control" value="{{date}}" data-date-format="YYYY-MM-DD" />
-		    <span class="input-group-addon">
-		      <span class="glyphicon glyphicon-calendar"></span>
-	        </span>
-		  </div>
-	    </div>
-	    <div class="result col-xs-6 col-md-4">
-	      <div class="col-xs-6 col-md-4">
-	        <input type="tel" name="score1" value="{{team1.score}}" class="form-control" />	
-	      </div>
-	      <div class="col-xs-6 col-md-4">
-	      	<input type="tel" name="score2" value="{{team2.score}}" class="form-control" />
-	      </div>
-	    </div>
-	    <div class="teams-container col-xs-12 col-md-8">
-	      <div class="team1 col-xs-6 col-md-4">
-		    {{#each allPlayers}}
-		    <input class="player" type="radio" value="{{name}}" name="team[0]player[0]" checked="{{isChecked name ../team1.player1}}" /><label>{{name}}</label>
-		    {{/each}}
-		    {{#each allPlayers}}
-		    <input class="player" type="radio" value="{{name}}" name="team[0]player[1]" checked="{{isChecked name ../team1.player2}}" /><label>{{name}}</label>
-		    {{/each}}
-	      </div>
-	      <div class="team2 col-xs-6 col-md-4">
-	        {{#each allPlayers}}
-		    <input class="player" type="radio" value="{{name}}" name="team[1]player[0]" checked="{{isChecked name ../team2.player1}}" /><label>{{name}}</label>
-		    {{/each}}
-	        {{#each allPlayers}}
-	        <input class="player" type="radio" value="{{name}}" name="team[1]player[1]" checked="{{isChecked name ../team2.player2}}" /><label>{{name}}</label>
-	        {{/each}}
-	      </div>
-	    </div>
-	    <button type="button" class="delete-button close">
-	      <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-	    </button>
-	</form>
-  </li>
+	<li class="result-container list-group-item">
+		<form class="row">
+			<div class="date-score-container col-xs-12 col-md-8">
+				<div class="date col-xs-6 col-md-4">
+					<div class="input-group datetimepicker">
+						<input type="text" name="date" class="form-control" value="{{date}}" data-date-format="YYYY-MM-DD" />
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-calendar"></span>
+						</span>
+					</div>
+				</div>
+				<div class="result col-xs-6 col-md-4">
+					<div class="col-xs-6 col-md-4">
+						<input type="tel" name="score1" value="{{team1.score}}" class="form-control" />	
+					</div>
+					<div class="col-xs-6 col-md-4">
+						<input type="tel" name="score2" value="{{team2.score}}" class="form-control" />
+					</div>
+				</div>
+			</div>
+			<div class="team-container col-xs-12 col-md-8">
+				{{> playerButtons teamNumber="0" playerNumber="0" selectedPlayer=team1.player1}}
+				{{> playerButtons teamNumber="0" playerNumber="1" selectedPlayer=team1.player2}}
+				{{> playerButtons teamNumber="1" playerNumber="0" selectedPlayer=team2.player1}}
+				{{> playerButtons teamNumber="1" playerNumber="1" selectedPlayer=team2.player2}}
+			</div>
+			<button type="button" class="delete-button close">
+				<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+			</button>
+		</form>
+	</li>
+</template>
+
+<template name="playerButtons">
+	<div class="col-xs-6 col-md-4">
+		<div class="btn-group btn-group-justified" role="group">
+			{{#each allPlayers}}
+			<div type="button" class="player btn btn-default {{isSelected name ../selectedPlayer}}" role="button" data-name="team[{{../teamNumber}}]player[{{../playerNumber}}]">{{name}}</div>
+			{{/each}}
+		</div>
+	</div>
 </template>
 
 <template name="addButton">
-  <div id="add-button-container">
-    <button type="button" id="addButton" name="addResult" class="btn btn-default glyphicon glyphicon-plus"></button>
-  </div>
+<div id="add-button-container">
+<button type="button" id="addButton" name="addResult" class="btn btn-default glyphicon glyphicon-plus"></button>
+</div>
 </template>
