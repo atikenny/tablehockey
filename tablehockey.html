@@ -2,14 +2,34 @@
 	<title>tablehockey.com</title>
 </head>
 <body>
-	{{> addButton}}
+	{{> navigation}}
 	{{> results}}
 </body>
+
+<template name="navigation">
+	<div id="navigation-container">
+		{{> addButton}}
+		{{> stats}}
+	</div>
+</template>
+
+<template name="addButton">
+	<div id="add-button-container" class="nav">
+		<button type="button" id="addButton" name="addResult" class="btn btn-default glyphicon glyphicon-plus"></button>
+	</div>
+</template>
+
+<template name="stats">
+	<div id="stats-button-container" class="nav">
+		<button type="button" id="statsButton" class="btn btn-default glyphicon glyphicon-signal"></button>
+	</div>
+	<div id="stats-container"></div>
+</template>
 
 <template name="results">
 	<div id="results-container">
 		<form id="results-form">
-			<ul class="list-group">
+			<ul>
 				{{#each results}}
 				{{> result}}
 				{{/each}}
@@ -19,10 +39,10 @@
 </template>
 
 <template name="result">
-	<li class="result-container list-group-item">
-		<form class="row">
-			<div class="date-score-container col-xs-12">
-				<div class="date col-xs-6">
+	<li class="result-container">
+		<form>
+			<div class="date-score-container">
+				<div class="date-container fifty">
 					<div class="input-group datetimepicker">
 						<input type="text" name="date" class="form-control" value="{{date}}" data-date-format="YYYY-MM-DD" />
 						<span class="input-group-addon">
@@ -30,21 +50,21 @@
 						</span>
 					</div>
 				</div>
-				<div class="result col-xs-6">
-					<div class="col-xs-6">
+				<div class="scores-container fifty">
+					<div class="score-container fifty">
 						<input type="tel" name="score1" value="{{team1.score}}" class="form-control" />	
 					</div>
-					<div class="col-xs-6">
+					<div class="score-container fifty">
 						<input type="tel" name="score2" value="{{team2.score}}" class="form-control" />
 					</div>
 				</div>
 			</div>
-			<div class="teams-container col-xs-12">
-				<div class="team-container col-xs-6 {{team1.won}}">
+			<div class="teams-container">
+				<div class="team-container fifty {{team1.won}}">
 					{{> playerButtons teamNumber="0" playerNumber="0" selectedPlayer=team1.player1}}
 					{{> playerButtons teamNumber="0" playerNumber="1" selectedPlayer=team1.player2}}
 				</div>
-				<div class="team-container col-xs-6 {{team2.won}}">
+				<div class="team-container fifty {{team2.won}}">
 					{{> playerButtons teamNumber="1" playerNumber="0" selectedPlayer=team2.player1}}
 					{{> playerButtons teamNumber="1" playerNumber="1" selectedPlayer=team2.player2}}
 				</div>
@@ -61,11 +81,5 @@
 		{{#each allPlayers}}
 		<div type="button" class="player btn btn-default {{isSelected name ../selectedPlayer}}" role="button" data-name="team[{{../teamNumber}}]player[{{../playerNumber}}]">{{name}}</div>
 		{{/each}}
-	</div>
-</template>
-
-<template name="addButton">
-	<div id="add-button-container">
-		<button type="button" id="addButton" name="addResult" class="btn btn-default glyphicon glyphicon-plus"></button>
 	</div>
 </template>

@@ -1,31 +1,106 @@
 body {
 	background-color: rgb(229, 229, 229);
+	position: relative;
 }
 
-#add-button-container {
-	text-align: center;
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
 }
+
+.fifty {
+	float: left;
+	width: 50%;
+}
+
+/* NAVIGATION */
+
+#navigation-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 10;
+	background-color: #f5f5f5;
+	border-bottom: 1px solid #d8d8d8;
+	padding: 10px;
+}
+
+#navigation-container .nav {
+	float: left;
+	margin: 0 10px;
+}
+
+/* ADD BUTTON */
 
 #addButton {
-	margin: 20px 0;
 	color: #fff;
 	background-color: #337ab7;
 }
 
+/* END OF ADD BUTTON */
+
+/* STATS */
+
+#stats-button-container {
+	
+}
+
+/* END OF STATS */
+
+/* END OF NAVIGATION */
+
+/* RESULTS */
+
 #results-container {
+	margin-top: 80px;
 	padding: 0 20px;
+	overflow: hidden;
 }
 
 .result-container {
 	margin-bottom: 20px;
+	padding-top: 20px;
 	border: 1px solid #d8d8d8;
 	border-bottom-width: 2px;
+	overflow: hidden;
+	background-color: #fff;
+	position: relative;
 }
 
 .delete-button {
 	position: absolute;
-	top: 10px;
-	right: 12px;
+	top: 2px;
+	right: 6px;
+}
+
+.date-score-container {
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+
+.date-container, .scores-container {
+	padding: 0 20px;
+}
+
+.score-container {
+	padding: 0 20px;
+}
+
+.teams-container {
+	overflow: hidden;
+	border-top: 1px solid #ccc;
+	background-color: #f5f5f5;
+}
+
+.team-container {
+	padding: 10px 20px;
+}
+
+.team-container.winner {
+	background-color: #e6f6e4;
 }
 
 .player {
@@ -48,6 +123,4 @@ body {
 	margin: 8px 0;
 }
 
-.date-score-container, .team-container {
-	margin: 8px 0;
-}
+/* END OF RESULTS */

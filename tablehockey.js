@@ -25,8 +25,8 @@ if (Meteor.isClient) {
       Results.remove(this._id);
     },
     "change .result-container, click .team-container": function (event, template) {
-      var score1 = template.$('[name="score1"]').val(),
-        score2 = template.$('[name="score2"]').val(),
+      var score1 = +template.$('[name="score1"]').val(),
+        score2 = +template.$('[name="score2"]').val(),
         team1Won = '',
         team2Won = '';
 
