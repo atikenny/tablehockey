@@ -3,31 +3,55 @@
 </head>
 <body>
 	{{> navigation}}
-	{{> results}}
+	<div id="content-container">
+		{{> results}}
+		{{> stats}}
+	</div>
 </body>
 
 <template name="navigation">
 	<div id="navigation-container">
-		{{> addButton}}
-		{{> stats}}
-	</div>
-</template>
-
-<template name="addButton">
-	<div id="add-button-container" class="nav">
-		<button type="button" id="addButton" name="addResult" class="btn btn-default glyphicon glyphicon-plus"></button>
+		<div id="add-button-container" class="nav">
+			<button type="button" id="addButton" name="addResult" class="btn btn-default glyphicon glyphicon-plus"></button>
+		</div>
+		<div id="stats-button-container" class="nav">
+			<button type="button" id="statsButton" class="btn btn-default glyphicon glyphicon-signal {{#if isActive 'stats'}}active{{/if}}"></button>
+		</div>
 	</div>
 </template>
 
 <template name="stats">
-	<div id="stats-button-container" class="nav">
-		<button type="button" id="statsButton" class="btn btn-default glyphicon glyphicon-signal"></button>
+	<div id="stats-container" class="{{#if show}}open{{/if}}">
+		<div id="team-stats-container" class="card">
+			<h2>Team stats:</h2>
+			<table width="100%">
+				<tr>
+					<th></th>
+					<th>P</th>
+					<th>+</th>
+					<th>-</th>
+					<th>W</th>
+					<th>L</th>
+					<th>T</th>
+				</tr>
+				{{#each teamStats}}
+				<tr>
+					<td>{{player1}}, {{player2}}</td>
+					<td class="points">{{points}}</td>
+					<td class="goals-for">{{goalsFor}}</td>
+					<td class="goals-against">{{goalsAgainst}}</td>
+					<td class="wins">{{winCount}}</td>
+					<td class="loss">{{lossCount}}</td>
+					<td class="ties">{{tieCount}}</td>
+				</tr>
+				{{/each}}
+			</table>
+		</div>
 	</div>
-	<div id="stats-container"></div>
 </template>
 
 <template name="results">
-	<div id="results-container">
+	<div id="results-container" class="{{#if show}}open{{/if}}">
 		<form id="results-form">
 			<ul>
 				{{#each results}}
@@ -39,7 +63,7 @@
 </template>
 
 <template name="result">
-	<li class="result-container">
+	<li class="result-container card">
 		<form>
 			<div class="date-score-container">
 				<div class="date-container fifty">
@@ -60,11 +84,11 @@
 				</div>
 			</div>
 			<div class="teams-container">
-				<div class="team-container fifty {{team1.won}}">
+				<div class="team-container fifty{{#if team1.won}} winner{{/if}}">
 					{{> playerButtons teamNumber="0" playerNumber="0" selectedPlayer=team1.player1}}
 					{{> playerButtons teamNumber="0" playerNumber="1" selectedPlayer=team1.player2}}
 				</div>
-				<div class="team-container fifty {{team2.won}}">
+				<div class="team-container fifty{{#if team2.won}} winner{{/if}}">
 					{{> playerButtons teamNumber="1" playerNumber="0" selectedPlayer=team2.player1}}
 					{{> playerButtons teamNumber="1" playerNumber="1" selectedPlayer=team2.player2}}
 				</div>

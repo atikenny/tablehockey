@@ -10,9 +10,19 @@ ul {
 	border: 0;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+}
+
 .fifty {
 	float: left;
 	width: 50%;
+}
+
+.card {
+	border: 1px solid #d8d8d8;
+	border-bottom-width: 2px;
+	background-color: #fff;
 }
 
 /* NAVIGATION */
@@ -42,10 +52,28 @@ ul {
 
 /* END OF ADD BUTTON */
 
+/* CONTENT */
+
+#content-container {
+	padding-top: 80px;
+}
+
+/* END OF CONTENT */
+
 /* STATS */
 
-#stats-button-container {
-	
+#stats-container {
+	padding: 0 20px;
+	display: none;
+}
+
+#stats-container.open {
+	display: block;
+}
+
+#team-stats-container {
+	margin-bottom: 20px;
+	padding: 20px;
 }
 
 /* END OF STATS */
@@ -55,18 +83,19 @@ ul {
 /* RESULTS */
 
 #results-container {
-	margin-top: 80px;
 	padding: 0 20px;
 	overflow: hidden;
+	display: none;
+}
+
+#results-container.open {
+	display: block;
 }
 
 .result-container {
 	margin-bottom: 20px;
 	padding-top: 20px;
-	border: 1px solid #d8d8d8;
-	border-bottom-width: 2px;
 	overflow: hidden;
-	background-color: #fff;
 	position: relative;
 }
 
@@ -82,12 +111,14 @@ ul {
 }
 
 .date-container, .scores-container {
-	padding: 0 20px;
+	padding: 10px 20px;
 }
 
 .score-container {
 	padding: 0 20px;
 }
+
+/* TEAMS */
 
 .teams-container {
 	overflow: hidden;
@@ -123,4 +154,20 @@ ul {
 	margin: 8px 0;
 }
 
+/* END OF TEAMS */
+
 /* END OF RESULTS */
+
+/* RESPONSIVE */
+
+@media (max-width: 750px) {
+	.date-container, .scores-container {
+		width: 100%;
+	}
+	
+	.team-container {
+		width: 100%;
+	}
+}
+
+/* END OF RESPONSIVE */
