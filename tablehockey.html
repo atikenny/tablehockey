@@ -12,40 +12,80 @@
 <template name="navigation">
 	<div id="navigation-container">
 		<div id="add-button-container" class="nav">
-			<button type="button" id="addButton" name="addResult" class="btn btn-default glyphicon glyphicon-plus"></button>
+			<button type="button" id="addButton" name="addResult" class="btn btn-primary glyphicon glyphicon-plus"></button>
 		</div>
 		<div id="stats-button-container" class="nav">
-			<button type="button" id="statsButton" class="btn btn-default glyphicon glyphicon-signal {{#if isActive 'stats'}}active{{/if}}"></button>
+			<button type="button" id="statsButton" class="btn btn-info glyphicon glyphicon-signal {{#if isActive 'stats'}}active{{/if}}"></button>
+		</div>
+		<div id="login-button-container">
+			{{> loginButtons align="right"}}
 		</div>
 	</div>
 </template>
 
 <template name="stats">
 	<div id="stats-container" class="{{#if show}}open{{/if}}">
-		<div id="team-stats-container" class="card">
-			<h2>Team stats:</h2>
-			<table width="100%">
-				<tr>
-					<th></th>
-					<th>P</th>
-					<th>+</th>
-					<th>-</th>
-					<th>W</th>
-					<th>L</th>
-					<th>T</th>
-				</tr>
-				{{#each teamStats}}
-				<tr>
-					<td>{{player1}}, {{player2}}</td>
-					<td class="points">{{points}}</td>
-					<td class="goals-for">{{goalsFor}}</td>
-					<td class="goals-against">{{goalsAgainst}}</td>
-					<td class="wins">{{winCount}}</td>
-					<td class="loss">{{lossCount}}</td>
-					<td class="ties">{{tieCount}}</td>
-				</tr>
-				{{/each}}
-			</table>
+		<div id="team-stats-container" class="card table-responsive">
+			<h2 class="stats-title bg-primary">Team stats</h2>
+			<div class="stats-table-container">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th></th>
+							<th>P</th>
+							<th>+</th>
+							<th>-</th>
+							<th>W</th>
+							<th>L</th>
+							<th>T</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each teamStats}}
+						<tr>
+							<td>{{player1}}, {{player2}}</td>
+							<td class="points">{{points}}</td>
+							<td class="goals-for">{{goalsFor}}</td>
+							<td class="goals-against">{{goalsAgainst}}</td>
+							<td class="wins">{{winCount}}</td>
+							<td class="loss">{{lossCount}}</td>
+							<td class="ties">{{tieCount}}</td>
+						</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div id="player-stats-container" class="card table-responsive">
+			<h2 class="stats-title bg-info">Player stats</h2>
+			<div class="stats-table-container">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th></th>
+							<th>P</th>
+							<th>+</th>
+							<th>-</th>
+							<th>W</th>
+							<th>L</th>
+							<th>T</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each playerStats}}
+						<tr>
+							<td>{{name}}</td>
+							<td class="points">{{points}}</td>
+							<td class="goals-for">{{goalsFor}}</td>
+							<td class="goals-against">{{goalsAgainst}}</td>
+							<td class="wins">{{winCount}}</td>
+							<td class="loss">{{lossCount}}</td>
+							<td class="ties">{{tieCount}}</td>
+						</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </template>
@@ -65,7 +105,7 @@
 <template name="result">
 	<li class="result-container card">
 		<form>
-			<div class="date-score-container">
+			<div class="date-score-container clearfix">
 				<div class="date-container fifty">
 					<div class="input-group datetimepicker">
 						<input type="text" name="date" class="form-control" value="{{date}}" data-date-format="YYYY-MM-DD" />
@@ -83,7 +123,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="teams-container">
+			<div class="teams-container clearfix">
 				<div class="team-container fifty{{#if team1.won}} winner{{/if}}">
 					{{> playerButtons teamNumber="0" playerNumber="0" selectedPlayer=team1.player1}}
 					{{> playerButtons teamNumber="0" playerNumber="1" selectedPlayer=team1.player2}}

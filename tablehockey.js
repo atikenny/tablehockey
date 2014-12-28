@@ -25,7 +25,124 @@ if (Meteor.isClient) {
     };
   }
 
+  function getStats() {
+    var stats = {
+          teamStats: [],
+          playerStats: []
+        },
+        results = Results.find().fetch();
+
+    function isResultMatchingTeam(resultTeam, stat) {
+      return stat.player1 === resultTeam.player1 && stat.player2 === resultTeam.player2 || stat.player1 === resultTeam.player2 && stat.player2 === resultTeam.player1;
+    }
+
+    function setTeamStat(stat, thisTeam, opponentTeam) {
+      stat.player1 = stat.player1 || thisTeam.player1;
+      stat.player2 = stat.player2 || thisTeam.player2;
+      stat.points = stat.points || 0;
+      stat.goalsFor = stat.goalsFor || 0;
+      stat.goalsAgainst = stat.goalsAgainst || 0;
+      stat.winCount = stat.winCount || 0;
+      stat.lossCount = stat.lossCount || 0;
+      stat.tieCount = stat.tieCount || 0;
+      
+      stat.goalsFor += thisTeam.score;
+      stat.goalsAgainst += opponentTeam.score;
+
+      if (thisTeam.won) {
+        stat.points += 3;
+        stat.winCount++;
+      }
+
+      if (opponentTeam.won) {
+        stat.lossCount++;
+      }
+
+      if (!thisTeam.won && !opponentTeam.won) {
+        stat.points += 1;
+        stat.tieCount++;
+      }
+    }
+
+    function setTeamStats(teamStats, thisTeamResult, opponentTeamResult) {
+      var foundTeam = false,
+          tempStatTeam = {};
+
+      teamStats.forEach(function (teamStat, index) {
+        if (isResultMatchingTeam(thisTeamResult, teamStat)) {
+          setTeamStat(teamStat, thisTeamResult, opponentTeamResult);
+
+          foundTeam = true;
+        }
+      });
+
+      if (!foundTeam) {
+        setTeamStat(tempStatTeam, thisTeamResult, opponentTeamResult);
+        teamStats.push(tempStatTeam);
+      }
+    }
+
+    function setPlayerStat(stat, player, thisTeam, opponentTeam) {
+      stat.name = stat.name || player;
+      stat.points = stat.points || 0;
+      stat.goalsFor = stat.goalsFor || 0;
+      stat.goalsAgainst = stat.goalsAgainst || 0;
+      stat.winCount = stat.winCount || 0;
+      stat.lossCount = stat.lossCount || 0;
+      stat.tieCount = stat.tieCount || 0;
+      
+      stat.goalsFor += thisTeam.score;
+      stat.goalsAgainst += opponentTeam.score;
+
+      if (thisTeam.won) {
+        stat.points += 3;
+        stat.winCount++;
+      }
+
+      if (opponentTeam.won) {
+        stat.lossCount++;
+      }
+
+      if (!thisTeam.won && !opponentTeam.won) {
+        stat.points += 1;
+        stat.tieCount++;
+      }
+    }
+
+    function setPlayerStats(playerStats, player, thisTeamResult, opponentTeamResult) {
+      var foundPlayer = false,
+          tempStatPlayer = {};
+
+      playerStats.forEach(function (playerStat, index) {
+        if (player === playerStat.name) {
+          setPlayerStat(playerStat, player, thisTeamResult, opponentTeamResult);
+
+          foundPlayer = true;
+        }
+      });
+
+      if (!foundPlayer) {
+        setPlayerStat(tempStatPlayer, player, thisTeamResult, opponentTeamResult);
+        playerStats.push(tempStatPlayer);
+      }
+    }
+
+    results.forEach(function (result) {
+      setTeamStats(stats.teamStats, result.team1, result.team2);
+      setTeamStats(stats.teamStats, result.team2, result.team1);
+      setPlayerStats(stats.playerStats, result.team1.player1, result.team1, result.team2);
+      setPlayerStats(stats.playerStats, result.team1.player2, result.team1, result.team2);
+      setPlayerStats(stats.playerStats, result.team2.player1, result.team2, result.team1);
+      setPlayerStats(stats.playerStats, result.team2.player2, result.team2, result.team1);
+    });
+
+    return stats;
+  }
+
   Session.setDefault('shownContent', defaultContent);
+
+  Meteor.subscribe('players');
+  Meteor.subscribe('results');
 
   Template.results.helpers({
     results: function () {
@@ -99,85 +216,30 @@ if (Meteor.isClient) {
       }
     },
     "click #addButton": function () {
-      var newResult = getNewResult();
-      
-      Results.insert(newResult);
+      if (Session.get('shownContent') === defaultContent) {
+        Results.insert(getNewResult());
+      }
     }
   });
 
   Template.stats.helpers({
     teamStats: function () {
-      var teamStats = [],
-          results = Results.find().fetch();
+      var stats = getStats();
 
-      function isResultMatchingTeam(resultTeam, stat) {
-        return stat.player1 === resultTeam.player1 && stat.player2 === resultTeam.player2 || stat.player1 === resultTeam.player2 && stat.player2 === resultTeam.player1;
-      }
-
-      function setStat(stat, thisTeam, opponentTeam) {
-        stat.player1 = stat.player1 || thisTeam.player1;
-        stat.player2 = stat.player2 || thisTeam.player2;
-        stat.points = stat.points || 0;
-        stat.goalsFor = stat.goalsFor || 0;
-        stat.goalsAgainst = stat.goalsAgainst || 0;
-        stat.winCount = stat.winCount || 0;
-        stat.lossCount = stat.lossCount || 0;
-        stat.tieCount = stat.tieCount || 0;
-        
-        stat.goalsFor += thisTeam.score;
-        stat.goalsAgainst += opponentTeam.score;
-
-        if (thisTeam.won) {
-          stat.points += 3;
-          stat.winCount++;
-        }
-
-        if (opponentTeam.won) {
-          stat.lossCount++;
-        }
-
-        if (!thisTeam.won && !opponentTeam.won) {
-          stat.points += 1;
-          stat.tieCount++;
-        }
-      }
-
-      results.forEach(function (result) {
-        var foundTeam1 = false,
-            foundTeam2 = false,
-            tempStatTeam1 = {},
-            tempStatTeam2 = {};
-
-        teamStats.forEach(function (teamStat, index) {
-          if (isResultMatchingTeam(result.team1, teamStat)) {
-            setStat(teamStats[index], result.team1, result.team2);
-
-            foundTeam1 = true;
-          }
-
-          if (isResultMatchingTeam(result.team2, teamStat)) {
-            setStat(teamStats[index], result.team2, result.team1);
-
-            foundTeam2 = true;
-          }
-        });
-
-        if (!foundTeam1) {
-          setStat(tempStatTeam1, result.team1, result.team2);
-          teamStats.push(tempStatTeam1);
-        }
-
-        if (!foundTeam2) {
-          setStat(tempStatTeam2, result.team2, result.team1);
-          teamStats.push(tempStatTeam2);
-        }
-      });
-
-      teamStats.sort(function (a, b) {
+      stats.teamStats.sort(function (a, b) {
         return b.points - a.points;
       });
 
-      return teamStats;
+      return stats.teamStats;
+    },
+    playerStats: function () {
+      var stats = getStats();
+
+      stats.playerStats.sort(function (a, b) {
+        return b.points - a.points;
+      });
+
+      return stats.playerStats;
     },
     show: function () {
       return Session.get('shownContent') === 'stats';
@@ -186,8 +248,7 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
+  function initPlayers() {
     var attila = Players.find({ name: 'Attila Bartha' }).fetch(),
         adam = Players.find({ name: 'Igor Mucsicska' }).fetch(),
         igor = Players.find({ name: 'Ádám Gráf' }).fetch(),
@@ -215,6 +276,30 @@ if (Meteor.isServer) {
       Players.insert({
         name: 'Tamás Meleg'
       });
+    }
+  }
+
+  Meteor.startup(function () {
+    initPlayers();
+  });
+
+  Meteor.publish('results', function () {
+    return Results.find();
+  });
+
+  Meteor.publish('players', function () {
+    return Players.find();
+  });
+
+  Results.allow({
+    insert: function (userId) {
+      return !!userId;
+    },
+    update: function (userId) {
+      return !!userId;
+    },
+    remove: function (userId) {
+      return !!userId;
     }
   });
 }

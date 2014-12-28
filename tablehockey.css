@@ -43,14 +43,9 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0 10px;
 }
 
-/* ADD BUTTON */
-
-#addButton {
-	color: #fff;
-	background-color: #337ab7;
+#login-button-container {
+	float: right;
 }
-
-/* END OF ADD BUTTON */
 
 /* CONTENT */
 
@@ -71,8 +66,15 @@ h1, h2, h3, h4, h5, h6 {
 	display: block;
 }
 
-#team-stats-container {
+#stats-container .card{
 	margin-bottom: 20px;
+}
+
+#stats-container .stats-title {
+	padding: 10px 20px;
+}
+
+#stats-container .stats-table-container {
 	padding: 20px;
 }
 
@@ -84,7 +86,6 @@ h1, h2, h3, h4, h5, h6 {
 
 #results-container {
 	padding: 0 20px;
-	overflow: hidden;
 	display: none;
 }
 
@@ -95,7 +96,6 @@ h1, h2, h3, h4, h5, h6 {
 .result-container {
 	margin-bottom: 20px;
 	padding-top: 20px;
-	overflow: hidden;
 	position: relative;
 }
 
@@ -107,7 +107,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .date-score-container {
 	margin-bottom: 20px;
-	overflow: hidden;
 }
 
 .date-container, .scores-container {
@@ -121,7 +120,6 @@ h1, h2, h3, h4, h5, h6 {
 /* TEAMS */
 
 .teams-container {
-	overflow: hidden;
 	border-top: 1px solid #ccc;
 	background-color: #f5f5f5;
 }
