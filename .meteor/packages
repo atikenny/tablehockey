@@ -4,8 +4,8 @@
 # but you can also edit it by hand.
 
 meteor-platform
-rajit:bootstrap3-datepicker
 mizzao:bootstrap-3
-accounts-ui
 accounts-google
 
+accounts-ui
+rajit:bootstrap3-datepicker

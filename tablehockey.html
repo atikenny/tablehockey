@@ -11,12 +11,16 @@
 
 <template name="navigation">
 	<div id="navigation-container">
+		{{#if currentUser}}
 		<div id="add-button-container" class="nav">
 			<button type="button" id="addButton" name="addResult" class="btn btn-primary glyphicon glyphicon-plus"></button>
 		</div>
 		<div id="stats-button-container" class="nav">
 			<button type="button" id="statsButton" class="btn btn-info glyphicon glyphicon-signal {{#if isActive 'stats'}}active{{/if}}"></button>
 		</div>
+		{{else}}
+		<h2 id="sign-in-label">Sign in please...</h2>
+		{{/if}}
 		<div id="login-button-container">
 			{{> loginButtons align="right"}}
 		</div>
@@ -25,6 +29,7 @@
 
 <template name="stats">
 	<div id="stats-container" class="{{#if show}}open{{/if}}">
+		{{#if teamStats.length}}
 		<div id="team-stats-container" class="card table-responsive">
 			<h2 class="stats-title bg-primary">Team stats</h2>
 			<div class="stats-table-container">
@@ -56,6 +61,8 @@
 				</table>
 			</div>
 		</div>
+		{{/if}}
+		{{#if playerStats.length}}
 		<div id="player-stats-container" class="card table-responsive">
 			<h2 class="stats-title bg-info">Player stats</h2>
 			<div class="stats-table-container">
@@ -87,56 +94,55 @@
 				</table>
 			</div>
 		</div>
+		{{/if}}
 	</div>
 </template>
 
 <template name="results">
+	{{#if results.count}}
 	<div id="results-container" class="{{#if show}}open{{/if}}">
-		<form id="results-form">
-			<ul>
-				{{#each results}}
-				{{> result}}
-				{{/each}}
-			</ul>
-		</form>
+		<ul>
+			{{#each results}}
+			{{> result}}
+			{{/each}}
+		</ul>
 	</div>
+	{{/if}}
 </template>
 
 <template name="result">
 	<li class="result-container card">
-		<form>
-			<div class="date-score-container clearfix">
-				<div class="date-container fifty">
-					<div class="input-group datetimepicker">
-						<input type="text" name="date" class="form-control" value="{{date}}" data-date-format="YYYY-MM-DD" />
-						<span class="input-group-addon">
-							<span class="glyphicon glyphicon-calendar"></span>
-						</span>
-					</div>
-				</div>
-				<div class="scores-container fifty">
-					<div class="score-container fifty">
-						<input type="tel" name="score1" value="{{team1.score}}" class="form-control" />	
-					</div>
-					<div class="score-container fifty">
-						<input type="tel" name="score2" value="{{team2.score}}" class="form-control" />
-					</div>
+		<div class="date-score-container clearfix">
+			<div class="date-container fifty">
+				<div class="input-group date">
+					<input type="text" name="date" class="form-control" value="{{date}}" />
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-calendar"></span>
+					</span>
 				</div>
 			</div>
-			<div class="teams-container clearfix">
-				<div class="team-container fifty{{#if team1.won}} winner{{/if}}">
-					{{> playerButtons teamNumber="0" playerNumber="0" selectedPlayer=team1.player1}}
-					{{> playerButtons teamNumber="0" playerNumber="1" selectedPlayer=team1.player2}}
+			<div class="scores-container fifty">
+				<div class="score-container fifty">
+					<input type="tel" name="score1" value="{{team1.score}}" class="form-control" />	
 				</div>
-				<div class="team-container fifty{{#if team2.won}} winner{{/if}}">
-					{{> playerButtons teamNumber="1" playerNumber="0" selectedPlayer=team2.player1}}
-					{{> playerButtons teamNumber="1" playerNumber="1" selectedPlayer=team2.player2}}
+				<div class="score-container fifty">
+					<input type="tel" name="score2" value="{{team2.score}}" class="form-control" />
 				</div>
 			</div>
-			<button type="button" class="delete-button close">
-				<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-			</button>
-		</form>
+		</div>
+		<div class="teams-container clearfix">
+			<div class="team-container fifty{{#if team1.won}} winner{{/if}}">
+				{{> playerButtons teamNumber="0" playerNumber="0" selectedPlayer=team1.player1}}
+				{{> playerButtons teamNumber="0" playerNumber="1" selectedPlayer=team1.player2}}
+			</div>
+			<div class="team-container fifty{{#if team2.won}} winner{{/if}}">
+				{{> playerButtons teamNumber="1" playerNumber="0" selectedPlayer=team2.player1}}
+				{{> playerButtons teamNumber="1" playerNumber="1" selectedPlayer=team2.player2}}
+			</div>
+		</div>
+		<button type="button" class="delete-button close">
+			<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+		</button>
 	</li>
 </template>
 

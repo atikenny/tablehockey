@@ -154,8 +154,11 @@ if (Meteor.isClient) {
   });
 
   Template.result.rendered = function () {
-    $('.datetimepicker').datetimepicker({
-      pickTime: false
+    $('.date').datepicker({
+      format: 'yyyy-mm-dd',
+      weekStart: 1,
+      todayBtn: 'linked',
+      autoclose: true
     });
   };
 
@@ -279,16 +282,31 @@ if (Meteor.isServer) {
     }
   }
 
+  Accounts.validateLoginAttempt(function (info) {
+    var allowedEmails = [
+      'atikenny@gmail.com',
+      'mucsi96@gmail.com',
+      'tamas.meleg@gmail.com',
+      'szpadamen@gmail.com'
+    ];
+
+    return info.user && info.user.services && allowedEmails.indexOf(info.user.services.google.email) !== -1;
+  });
+
   Meteor.startup(function () {
     initPlayers();
   });
 
   Meteor.publish('results', function () {
-    return Results.find();
+    if (this.userId) {
+      return Results.find();
+    }
   });
 
   Meteor.publish('players', function () {
-    return Players.find();
+    if (this.userId) {
+      return Players.find();
+    }
   });
 
   Results.allow({

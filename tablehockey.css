@@ -38,14 +38,37 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 10px;
 }
 
+#navigation-container button {
+	outline: none;
+}
+
 #navigation-container .nav {
 	float: left;
 	margin: 0 10px;
 }
 
+#sign-in-label {
+	float: left;
+}
+
+/* LOGIN BUTTONS */
+
 #login-button-container {
 	float: right;
 }
+
+#login-buttons .login-image {
+	top: 9px;
+}
+
+#login-buttons .login-button {
+	font-size: 14px;
+	padding: 6px 12px;
+}
+
+/* END OF LOGIN BUTTONS */
+
+/* END OF NAVIGATION */
 
 /* CONTENT */
 
