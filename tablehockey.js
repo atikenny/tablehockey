@@ -1,5 +1,6 @@
 Results = new Mongo.Collection('results');
 Players = new Mongo.Collection('players');
+Teams = new Mongo.Collection('teams');
 
 if (Meteor.isClient) {
   var defaultContent = 'results';
@@ -14,13 +15,15 @@ if (Meteor.isClient) {
         player1: players[0].name,
         player2: players[1].name,
         score: 0,
-        won: false
+        won: false,
+        nationality: getTeamByPlayers([players[0].name, players[1].name]).code
       },
       team2: {
         player1: players[2].name,
         player2: players[3].name,
         score: 0,
-        won: false
+        won: false,
+        nationality: getTeamByPlayers([players[2].name, players[3].name]).code
       }
     };
   }
@@ -139,9 +142,18 @@ if (Meteor.isClient) {
     return stats;
   }
 
+  function getTeamByPlayers(players) {
+    var team = Teams.findOne({
+        players: { $all: players }
+      });
+
+    return team;
+  }
+
   Session.setDefault('shownContent', defaultContent);
 
   Meteor.subscribe('players');
+  Meteor.subscribe('teams');
   Meteor.subscribe('results');
 
   Template.results.helpers({
@@ -166,23 +178,33 @@ if (Meteor.isClient) {
     "click .delete-button": function () {
       Results.remove(this._id);
     },
-    "change .result-container, click .team-container": function (event, template) {
+    "change .result-container, click .player-selector-container": function (event, template) {
       var score1 = +template.$('[name="score1"]').val(),
-        score2 = +template.$('[name="score2"]').val();
+        score2 = +template.$('[name="score2"]').val(),
+        team1 = {
+          player1: template.$('.selected[data-name="team[0]player[0]"]').html(),
+          player2: template.$('.selected[data-name="team[0]player[1]"]').html()
+        },
+        team2 = {
+          player1: template.$('.selected[data-name="team[1]player[0]"]').html(),
+          player2: template.$('.selected[data-name="team[1]player[1]"]').html()
+        };
 
       Results.update(this._id, {$set: {
         date: template.$('[name="date"]').val(),
         team1: {
-          player1: template.$('.selected[data-name="team[0]player[0]"]').html(),
-          player2: template.$('.selected[data-name="team[0]player[1]"]').html(),
+          player1: team1.player1,
+          player2: team1.player2,
           score: score1,
-          won: score1 > score2
+          won: score1 > score2,
+          nationality: getTeamByPlayers([team1.player1, team1.player2]).code
         },
         team2: {
-          player1: template.$('.selected[data-name="team[1]player[0]"]').html(),
-          player2: template.$('.selected[data-name="team[1]player[1]"]').html(),
+          player1: team2.player1,
+          player2: team2.player2,
           score: score2,
-          won: score1 < score2
+          won: score1 < score2,
+          nationality: getTeamByPlayers([team2.player1, team2.player2]).code
         }
       }});
     }
@@ -282,6 +304,63 @@ if (Meteor.isServer) {
     }
   }
 
+  function initTeams() {
+    var hungary = Teams.find({ name: 'hungary' }).fetch(),
+        ukraine = Teams.find({ name: 'ukraine' }).fetch(),
+        canada = Teams.find({ name: 'canada' }).fetch(),
+        czech = Teams.find({ name: 'czech' }).fetch(),
+        djibuty = Teams.find({ name: 'djibuty' }).fetch(),
+        greatbritain = Teams.find({ name: 'greatbritain' }).fetch();
+    
+    if (_.isEmpty(hungary)) {
+      Teams.insert({
+        name: 'hungary',
+        code: 'hu',
+        players: ['Tamás Meleg', 'Attila Bartha']
+      });
+    }
+    
+    if (_.isEmpty(ukraine)) {
+      Teams.insert({
+        name: 'ukraine',
+        code: 'ua',
+        players: ['Tamás Meleg', 'Igor Mucsicska']
+      });
+    }
+    
+    if (_.isEmpty(canada)) {
+      Teams.insert({
+        name: 'canada',
+        code: 'ca',
+        players: ['Tamás Meleg', 'Ádám Gráf']
+      });
+    }
+    
+    if (_.isEmpty(czech)) {
+      Teams.insert({
+        name: 'czech',
+        code: 'cz',
+        players: ['Igor Mucsicska', 'Attila Bartha']
+      });
+    }
+
+    if (_.isEmpty(djibuty)) {
+      Teams.insert({
+        name: 'djibuty',
+        code: 'dj',
+        players: ['Ádám Gráf', 'Attila Bartha']
+      });
+    }
+
+    if (_.isEmpty(greatbritain)) {
+      Teams.insert({
+        name: 'greatbritain',
+        code: 'gb',
+        players: ['Ádám Gráf', 'Igor Mucsicska']
+      });
+    }
+  }
+
   Accounts.validateLoginAttempt(function (info) {
     var allowedEmails = [
       'atikenny@gmail.com',
@@ -295,6 +374,7 @@ if (Meteor.isServer) {
 
   Meteor.startup(function () {
     initPlayers();
+    initTeams();
   });
 
   Meteor.publish('results', function () {
@@ -306,6 +386,12 @@ if (Meteor.isServer) {
   Meteor.publish('players', function () {
     if (this.userId) {
       return Players.find();
+    }
+  });
+
+  Meteor.publish('teams', function () {
+    if (this.userId) {
+      return Teams.find();
     }
   });
 

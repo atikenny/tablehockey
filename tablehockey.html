@@ -123,21 +123,26 @@
 			</div>
 			<div class="scores-container fifty">
 				<div class="score-container fifty">
-					<input type="tel" name="score1" value="{{team1.score}}" class="form-control" />	
+					<input type="tel" name="score1" value="{{team1.score}}" class="form-control score flag-{{team1.nationality}}" />
 				</div>
 				<div class="score-container fifty">
-					<input type="tel" name="score2" value="{{team2.score}}" class="form-control" />
+					<input type="tel" name="score2" value="{{team2.score}}" class="form-control score flag-{{team2.nationality}}" />
 				</div>
 			</div>
 		</div>
 		<div class="teams-container clearfix">
-			<div class="team-container fifty{{#if team1.won}} winner{{/if}}">
-				{{> playerButtons teamNumber="0" playerNumber="0" selectedPlayer=team1.player1}}
-				{{> playerButtons teamNumber="0" playerNumber="1" selectedPlayer=team1.player2}}
+			<div class="team-container fifty flagged">
+				<div class="country-container flag-hu"></div>
+				<div class="player-selector-container{{#if team1.won}} winner{{/if}}">
+					{{> playerButtons teamNumber="0" playerNumber="0" selectedPlayer=team1.player1}}
+					{{> playerButtons teamNumber="0" playerNumber="1" selectedPlayer=team1.player2}}
+				</div>
 			</div>
-			<div class="team-container fifty{{#if team2.won}} winner{{/if}}">
-				{{> playerButtons teamNumber="1" playerNumber="0" selectedPlayer=team2.player1}}
-				{{> playerButtons teamNumber="1" playerNumber="1" selectedPlayer=team2.player2}}
+			<div class="team-container fifty">
+				<div class="player-selector-container{{#if team2.won}} winner{{/if}}">
+					{{> playerButtons teamNumber="1" playerNumber="0" selectedPlayer=team2.player1}}
+					{{> playerButtons teamNumber="1" playerNumber="1" selectedPlayer=team2.player2}}
+				</div>
 			</div>
 		</div>
 		<button type="button" class="delete-button close">
@@ -149,7 +154,7 @@
 <template name="playerButtons">
 	<div class="players-container btn-group btn-group-sm btn-group-justified" role="group">
 		{{#each allPlayers}}
-		<div type="button" class="player btn btn-default {{isSelected name ../selectedPlayer}}" role="button" data-name="team[{{../teamNumber}}]player[{{../playerNumber}}]">{{name}}</div>
+		<div class="player btn btn-default {{isSelected name ../selectedPlayer}}" role="button" data-name="team[{{../teamNumber}}]player[{{../playerNumber}}]">{{name}}</div>
 		{{/each}}
 	</div>
 </template>

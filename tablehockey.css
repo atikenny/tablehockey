@@ -147,11 +147,11 @@ h1, h2, h3, h4, h5, h6 {
 	background-color: #f5f5f5;
 }
 
-.team-container {
+.player-selector-container {
 	padding: 10px 20px;
 }
 
-.team-container.winner {
+.player-selector-container.winner {
 	background-color: #e6f6e4;
 }
 
@@ -176,6 +176,34 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* END OF TEAMS */
+
+/* FLAGS */
+
+.score.flag-ca {
+	background: url('/img/flags/ca.svg') right 0/contain no-repeat transparent;
+}
+
+.score.flag-cz {
+	background: url('/img/flags/cz.svg') right 0/contain no-repeat transparent;
+}
+
+.score.flag-dj {
+	background: url('/img/flags/dj.svg') right 0/contain no-repeat transparent;
+}
+
+.score.flag-gb {
+	background: url('/img/flags/gb.svg') right 0/contain no-repeat transparent;
+}
+
+.score.flag-hu {
+	background: url('/img/flags/hu.svg') right 0/contain no-repeat transparent;
+}
+
+.score.flag-ua {
+	background: url('/img/flags/ua.svg') right 0/contain no-repeat transparent;
+}
+
+/* END OF FLAGS */
 
 /* END OF RESULTS */
 
