@@ -130,8 +130,11 @@
 					<input type="tel" name="score2" value="{{team2.score}}" class="form-control score flag-{{team2.nationality}}" />
 				</div>
 			</div>
+			<button type="button" class="players-button">
+				<span aria-hidden="true"></span>
+			</button>
 		</div>
-		<div class="teams-container clearfix">
+		<div class="teams-container clearfix {{#unless hasWinner}}open{{/unless}}">
 			<div class="team-container fifty">
 				<div class="player-selector-container{{#if team1.won}} winner{{/if}}">
 					{{> playerButtons teamNumber="0" playerNumber="0" selectedPlayer=team1.player1}}
@@ -146,7 +149,7 @@
 			</div>
 		</div>
 		<button type="button" class="delete-button close">
-			<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+			<span aria-hidden="true">&times;</span>
 		</button>
 	</li>
 </template>

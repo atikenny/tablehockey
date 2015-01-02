@@ -165,6 +165,12 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.result.helpers({
+    hasWinner: function () {
+      return this.team1.won || this.team2.won;
+    }
+  });
+
   Template.result.rendered = function () {
     $('.date').datepicker({
       format: 'yyyy-mm-dd',
@@ -177,6 +183,9 @@ if (Meteor.isClient) {
   Template.result.events({
     "click .delete-button": function () {
       Results.remove(this._id);
+    },
+    "click .players-button": function (event, template) {
+      template.$('.teams-container').toggleClass('open');
     },
     "change .result-container, click .player-selector-container": function (event, template) {
       var score1 = +template.$('[name="score1"]').val(),
