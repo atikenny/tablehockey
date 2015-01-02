@@ -14,7 +14,9 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 }
 
-button {
+button,
+.btn, .btn:focus, .btn:active, .btn:hover,
+.btn.active, .btn.active:focus, .btn.active:active, .btn.active:hover {
 	outline: none;
 }
 
