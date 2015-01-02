@@ -40,6 +40,7 @@ if (Meteor.isClient) {
     }
 
     function setTeamStat(stat, thisTeam, opponentTeam) {
+      stat.team = stat.team || getTeamByPlayers([thisTeam.player1, thisTeam.player2]);
       stat.player1 = stat.player1 || thisTeam.player1;
       stat.player2 = stat.player2 || thisTeam.player2;
       stat.points = stat.points || 0;

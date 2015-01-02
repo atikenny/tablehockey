@@ -49,7 +49,10 @@
 					<tbody>
 						{{#each teamStats}}
 						<tr>
-							<td>{{player1}}, {{player2}}</td>
+							<td class="players">
+								<span class="player-names">{{player1}}, {{player2}}</span>
+								<span class="flag-bg flag-{{team.code}}">&nbsp;</span>
+							</td>
 							<td class="points">{{points}}</td>
 							<td class="goals-for">{{goalsFor}}</td>
 							<td class="goals-against">{{goalsAgainst}}</td>
@@ -124,10 +127,10 @@
 			</div>
 			<div class="scores-container fifty">
 				<div class="score-container fifty">
-					<input type="tel" name="score1" value="{{team1.score}}" class="form-control score flag-{{team1.nationality}}" />
+					<input type="tel" name="score1" value="{{team1.score}}" class="form-control score flag-bg flag-{{team1.nationality}}" />
 				</div>
 				<div class="score-container fifty">
-					<input type="tel" name="score2" value="{{team2.score}}" class="form-control score flag-{{team2.nationality}}" />
+					<input type="tel" name="score2" value="{{team2.score}}" class="form-control score flag-bg flag-{{team2.nationality}}" />
 				</div>
 			</div>
 			<button type="button" class="players-button">
