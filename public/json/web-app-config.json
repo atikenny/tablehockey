@@ -1,0 +1,13 @@
+{
+	"name": "tablehockey.com",
+	"icons": [
+		{
+			"src": "/img/icons/favicon.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"density": "1.0"
+		}
+	],
+	"display": "standalone",
+	"orientation": "portrait"
+}
