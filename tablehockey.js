@@ -29,116 +29,492 @@ if (Meteor.isClient) {
   }
 
   function getStats() {
-    var stats = {
-          teamStats: [],
-          playerStats: []
-        },
-        results = Results.find().fetch();
+    var stats = {};
 
-    function isResultMatchingTeam(resultTeam, stat) {
-      return stat.player1 === resultTeam.player1 && stat.player2 === resultTeam.player2 || stat.player1 === resultTeam.player2 && stat.player2 === resultTeam.player1;
+    function sortByPoints(a, b) {
+      var order;
+
+      if (a.points === b.points) {
+        order = b.goalsFor - a.goalsFor;
+      } else {
+        order = b.points - a.points;
+      }
+
+      return order;
     }
 
-    function setTeamStat(stat, thisTeam, opponentTeam) {
-      stat.team = stat.team || getTeamByPlayers([thisTeam.player1, thisTeam.player2]);
-      stat.player1 = stat.player1 || thisTeam.player1;
-      stat.player2 = stat.player2 || thisTeam.player2;
-      stat.points = stat.points || 0;
-      stat.goalsFor = stat.goalsFor || 0;
-      stat.goalsAgainst = stat.goalsAgainst || 0;
-      stat.winCount = stat.winCount || 0;
-      stat.lossCount = stat.lossCount || 0;
-      stat.tieCount = stat.tieCount || 0;
-      
-      stat.goalsFor += thisTeam.score;
-      stat.goalsAgainst += opponentTeam.score;
-
-      if (thisTeam.won) {
-        stat.points += 3;
-        stat.winCount++;
-      }
-
-      if (opponentTeam.won) {
-        stat.lossCount++;
-      }
-
-      if (!thisTeam.won && !opponentTeam.won) {
-        stat.points += 1;
-        stat.tieCount++;
-      }
+    function getTeamWinCount(players) {
+      return Results.find(
+        {
+          $or: [
+            {
+              $and: [
+                {
+                  $or: [
+                    {
+                      $and: [
+                        { "team1.player1": players[0] },
+                        { "team1.player2": players[1] }
+                      ]
+                    },
+                    {
+                      $and: [
+                        { "team1.player1": players[1] },
+                        { "team1.player2": players[0] }
+                      ]
+                    }
+                  ]
+                },
+                { "team1.won": true }
+              ]
+            },
+            {
+              $and: [
+                {
+                  $or: [
+                    {
+                      $and: [
+                        { "team2.player1": players[0] },
+                        { "team2.player2": players[1] }
+                      ]
+                    },
+                    {
+                      $and: [
+                        { "team2.player1": players[1] },
+                        { "team2.player2": players[0] }
+                      ]
+                    }
+                  ]
+                },
+                { "team2.won": true }
+              ]
+            }
+          ]
+        }).count();
     }
 
-    function setTeamStats(teamStats, thisTeamResult, opponentTeamResult) {
-      var foundTeam = false,
-          tempStatTeam = {};
+    function getTeamLossCount(players) {
+      return Results.find(
+        {
+          $or: [
+            {
+              $and: [
+                {
+                  $or: [
+                    {
+                      $and: [
+                        { "team1.player1": players[0] },
+                        { "team1.player2": players[1] }
+                      ]
+                    },
+                    {
+                      $and: [
+                        { "team1.player1": players[1] },
+                        { "team1.player2": players[0] }
+                      ]
+                    }
+                  ]
+                },
+                { "team2.won": true }
+              ]
+            },
+            {
+              $and: [
+                {
+                  $or: [
+                    {
+                      $and: [
+                        { "team2.player1": players[0] },
+                        { "team2.player2": players[1] }
+                      ]
+                    },
+                    {
+                      $and: [
+                        { "team2.player1": players[1] },
+                        { "team2.player2": players[0] }
+                      ]
+                    }
+                  ]
+                },
+                { "team1.won": true }
+              ]
+            }
+          ]
+        }).count();
+    }
 
-      teamStats.forEach(function (teamStat, index) {
-        if (isResultMatchingTeam(thisTeamResult, teamStat)) {
-          setTeamStat(teamStat, thisTeamResult, opponentTeamResult);
+    function getTeamTieCount(players) {
+      return Results.find(
+        {
+          $or: [
+            {
+              $and: [
+                {
+                  $or: [
+                    {
+                      $and: [
+                        { "team1.player1": players[0] },
+                        { "team1.player2": players[1] }
+                      ]
+                    },
+                    {
+                      $and: [
+                        { "team1.player1": players[1] },
+                        { "team1.player2": players[0] }
+                      ]
+                    }
+                  ]
+                },
+                { "team1.won": false },
+                { "team2.won": false }
+              ]
+            },
+            {
+              $and: [
+                {
+                  $or: [
+                    {
+                      $and: [
+                        { "team2.player1": players[0] },
+                        { "team2.player2": players[1] }
+                      ]
+                    },
+                    {
+                      $and: [
+                        { "team2.player1": players[1] },
+                        { "team2.player2": players[0] }
+                      ]
+                    }
+                  ]
+                },
+                { "team1.won": false },
+                { "team2.won": false }
+              ]
+            }
+          ]
+        }).count();
+    }
 
-          foundTeam = true;
-        }
+    function getTeamGoalsAgainst(players) {
+      var goalsAgainstTeam1,
+          goalsAgainstTeam2;
+
+      goalsAgainstTeam1 = Results
+        .find({
+          $or: [
+            {
+              $and: [
+                { "team1.player1": players[0] },
+                { "team1.player2": players[1] }
+              ]
+            },
+            {
+              $and: [
+                { "team1.player1": players[1] },
+                { "team1.player2": players[0] }
+              ]
+            }
+          ]
+        }).fetch()
+        .map(function (result) { 
+          return result.team2.score
+        })
+        .reduce(function (a, b) {
+            return a + b;
+          }, 0
+        );
+
+      goalsAgainstTeam2 = Results
+        .find({
+          $or: [
+            {
+              $and: [
+                { "team2.player1": players[0] },
+                { "team2.player2": players[1] }
+              ]
+            },
+            {
+              $and: [
+                { "team2.player1": players[1] },
+                { "team2.player2": players[0] }
+              ]
+            }
+          ]
+        }).fetch()
+        .map(function (result) { 
+          return result.team1.score
+        })
+        .reduce(function (a, b) {
+            return a + b;
+          }, 0
+        );
+
+      return goalsAgainstTeam1 + goalsAgainstTeam2;
+    }
+
+    function getTeamGoalsFor(players) {
+      var goalsForTeam1,
+          goalsForTeam2;
+
+      goalsForTeam1 = Results
+        .find({
+          $or: [
+            {
+              $and: [
+                { "team1.player1": players[0] },
+                { "team1.player2": players[1] }
+              ]
+            },
+            {
+              $and: [
+                { "team1.player1": players[1] },
+                { "team1.player2": players[0] }
+              ]
+            }
+          ]
+        }).fetch()
+        .map(function (result) { 
+          return result.team1.score
+        })
+        .reduce(function (a, b) {
+            return a + b;
+          }, 0
+        );
+
+      goalsForTeam2 = Results
+        .find({
+          $or: [
+            {
+              $and: [
+                { "team2.player1": players[0] },
+                { "team2.player2": players[1] }
+              ]
+            },
+            {
+              $and: [
+                { "team2.player1": players[1] },
+                { "team2.player2": players[0] }
+              ]
+            }
+          ]
+        }).fetch()
+        .map(function (result) { 
+          return result.team2.score
+        })
+        .reduce(function (a, b) {
+            return a + b;
+          }, 0
+        );
+
+      return goalsForTeam1 + goalsForTeam2;
+    }
+
+    function getTeamStats() {
+      var teamStats = [],
+          teams = Teams.find().fetch();
+
+      teams.forEach(function (team) {
+        var winCount = getTeamWinCount(team.players),
+            lossCount = getTeamLossCount(team.players),
+            tieCount = getTeamTieCount(team.players);
+
+        teamStats.push({
+          player1:        team.players[0],
+          player2:        team.players[1],
+          team:           team,
+          points:         winCount * 3 + tieCount,
+          goalsFor:       getTeamGoalsFor(team.players),
+          goalsAgainst:   getTeamGoalsAgainst(team.players),
+          winCount:       winCount,
+          lossCount:      lossCount,
+          tieCount:       tieCount
+        });
       });
 
-      if (!foundTeam) {
-        setTeamStat(tempStatTeam, thisTeamResult, opponentTeamResult);
-        teamStats.push(tempStatTeam);
-      }
+      teamStats.sort(sortByPoints);
+
+      return teamStats;
     }
 
-    function setPlayerStat(stat, player, thisTeam, opponentTeam) {
-      stat.name = stat.name || player;
-      stat.points = stat.points || 0;
-      stat.goalsFor = stat.goalsFor || 0;
-      stat.goalsAgainst = stat.goalsAgainst || 0;
-      stat.winCount = stat.winCount || 0;
-      stat.lossCount = stat.lossCount || 0;
-      stat.tieCount = stat.tieCount || 0;
-      
-      stat.goalsFor += thisTeam.score;
-      stat.goalsAgainst += opponentTeam.score;
-
-      if (thisTeam.won) {
-        stat.points += 3;
-        stat.winCount++;
-      }
-
-      if (opponentTeam.won) {
-        stat.lossCount++;
-      }
-
-      if (!thisTeam.won && !opponentTeam.won) {
-        stat.points += 1;
-        stat.tieCount++;
-      }
+    function getPlayerWinCount(playerName) {
+      return Results.find(
+        {
+          $or: [
+            {
+              $and: [
+                {
+                  $or: [
+                    { "team1.player1": playerName },
+                    { "team1.player2": playerName }
+                  ]
+                },
+                { "team1.won": true}
+              ]
+            },
+            {
+              $and: [
+                {
+                  $or: [
+                    { "team2.player1": playerName },
+                    { "team2.player2": playerName }
+                  ]
+                },
+                { "team2.won": true}
+              ]
+            }
+          ]
+        }).count();
     }
 
-    function setPlayerStats(playerStats, player, thisTeamResult, opponentTeamResult) {
-      var foundPlayer = false,
-          tempStatPlayer = {};
+    function getPlayerLossCount(playerName) {
+      return Results.find(
+        {
+          $or: [
+            {
+              $and: [
+                {
+                  $or: [
+                    { "team1.player1": playerName },
+                    { "team1.player2": playerName }
+                  ]
+                },
+                { "team2.won": true}
+              ]
+            },
+            {
+              $and: [
+                {
+                  $or: [
+                    { "team2.player1": playerName },
+                    { "team2.player2": playerName }
+                  ]
+                },
+                { "team1.won": true}
+              ]
+            }
+          ]
+        }).count();
+    }
 
-      playerStats.forEach(function (playerStat, index) {
-        if (player === playerStat.name) {
-          setPlayerStat(playerStat, player, thisTeamResult, opponentTeamResult);
+    function getPlayerTieCount(playerName) {
+      return Results.find(
+        {
+          $and: [
+            { "team1.won": false},
+            { "team2.won": false},
+            {
+              $or: [
+                { "team1.player1": playerName },
+                { "team1.player2": playerName },
+                { "team2.player1": playerName },
+                { "team2.player2": playerName }
+              ]
+            }
+          ]
+        }).count();
+    }
 
-          foundPlayer = true;
-        }
+    function getPlayerGoalsAgainst(playerName) {
+      var goalsAgainstTeam1,
+          goalsAgainstTeam2;
+
+      goalsAgainstTeam1 = Results
+        .find({
+          $or: [
+            { "team1.player1": playerName },
+            { "team1.player2": playerName }
+          ]
+        }).fetch()
+        .map(function (result) { 
+          return result.team2.score
+        })
+        .reduce(function (a, b) {
+            return a + b;
+          }, 0
+        );
+
+      goalsAgainstTeam2 = Results
+        .find({
+          $or: [
+            { "team2.player1": playerName },
+            { "team2.player2": playerName }
+          ]
+        }).fetch()
+        .map(function (result) { 
+          return result.team1.score
+        })
+        .reduce(function (a, b) {
+            return a + b;
+          }, 0
+        );
+
+      return goalsAgainstTeam1 + goalsAgainstTeam2;
+    }
+
+    function getPlayerGoalsFor(playerName) {
+      var goalsForTeam1,
+          goalsForTeam2;
+
+      goalsForTeam1 = Results
+        .find({
+          $or: [
+            { "team1.player1": playerName },
+            { "team1.player2": playerName }
+          ]
+        }).fetch()
+        .map(function (result) { 
+          return result.team1.score
+        })
+        .reduce(function (a, b) {
+            return a + b;
+          }, 0
+        );
+
+      goalsForTeam2 = Results
+        .find({
+          $or: [
+            { "team2.player1": playerName },
+            { "team2.player2": playerName }
+          ]
+        }).fetch()
+        .map(function (result) { 
+          return result.team2.score
+        })
+        .reduce(function (a, b) {
+            return a + b;
+          }, 0
+        );
+
+      return goalsForTeam1 + goalsForTeam2;
+    }
+
+    function getPlayerStats() {
+      var playerStats = [],
+          players = Players.find().fetch();
+
+      players.forEach(function (player) {
+        var winCount = getPlayerWinCount(player.name),
+            lossCount = getPlayerLossCount(player.name),
+            tieCount = getPlayerTieCount(player.name);
+
+        playerStats.push({
+          name:           player.name,
+          points:         winCount * 3 + tieCount,
+          goalsFor:       getPlayerGoalsFor(player.name),
+          goalsAgainst:   getPlayerGoalsAgainst(player.name),
+          winCount:       winCount,
+          lossCount:      lossCount,
+          tieCount:       tieCount
+        });
       });
 
-      if (!foundPlayer) {
-        setPlayerStat(tempStatPlayer, player, thisTeamResult, opponentTeamResult);
-        playerStats.push(tempStatPlayer);
-      }
+      playerStats.sort(sortByPoints);
+
+      return playerStats;
     }
 
-    results.forEach(function (result) {
-      setTeamStats(stats.teamStats, result.team1, result.team2);
-      setTeamStats(stats.teamStats, result.team2, result.team1);
-      setPlayerStats(stats.playerStats, result.team1.player1, result.team1, result.team2);
-      setPlayerStats(stats.playerStats, result.team1.player2, result.team1, result.team2);
-      setPlayerStats(stats.playerStats, result.team2.player1, result.team2, result.team1);
-      setPlayerStats(stats.playerStats, result.team2.player2, result.team2, result.team1);
-    });
+    stats.teamStats = getTeamStats();
+    stats.playerStats = getPlayerStats();
 
     return stats;
   }
