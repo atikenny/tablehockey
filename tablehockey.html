@@ -1,4 +1,5 @@
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>tablehockey.com</title>
 </head>
 <body>
@@ -30,7 +31,7 @@
 <template name="stats">
 	<div id="stats-container" class="{{#if show}}open{{/if}}">
 		{{#if teamStats.length}}
-		<div id="team-stats-container" class="card table-responsive">
+		<div id="team-stats-container" class="stat-container card table-responsive">
 			<h2 class="stats-title bg-primary">Team stats</h2>
 			<div class="stats-table-container">
 				<table class="table table-striped">
@@ -63,7 +64,7 @@
 		</div>
 		{{/if}}
 		{{#if playerStats.length}}
-		<div id="player-stats-container" class="card table-responsive">
+		<div id="player-stats-container" class="stat-container card table-responsive">
 			<h2 class="stats-title bg-info">Player stats</h2>
 			<div class="stats-table-container">
 				<table class="table table-striped">
@@ -131,8 +132,7 @@
 			</div>
 		</div>
 		<div class="teams-container clearfix">
-			<div class="team-container fifty flagged">
-				<div class="country-container flag-hu"></div>
+			<div class="team-container fifty">
 				<div class="player-selector-container{{#if team1.won}} winner{{/if}}">
 					{{> playerButtons teamNumber="0" playerNumber="0" selectedPlayer=team1.player1}}
 					{{> playerButtons teamNumber="0" playerNumber="1" selectedPlayer=team1.player2}}
