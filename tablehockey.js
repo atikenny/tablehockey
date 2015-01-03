@@ -31,7 +31,8 @@ if (Meteor.isClient) {
         score: 0,
         won: false,
         nationality: getTeamByPlayers([players[2].name, players[3].name]).code
-      }
+      },
+      ended: false
     };
   }
 
@@ -53,47 +54,52 @@ if (Meteor.isClient) {
     function getTeamWinCount(players) {
       return Results.find(
         {
-          $or: [
+          $and: [
+            { ended: true },
             {
-              $and: [
+              $or: [
                 {
-                  $or: [
+                  $and: [
                     {
-                      $and: [
-                        { "team1.player1": players[0] },
-                        { "team1.player2": players[1] }
+                      $or: [
+                        {
+                          $and: [
+                            { "team1.player1": players[0] },
+                            { "team1.player2": players[1] }
+                          ]
+                        },
+                        {
+                          $and: [
+                            { "team1.player1": players[1] },
+                            { "team1.player2": players[0] }
+                          ]
+                        }
                       ]
                     },
-                    {
-                      $and: [
-                        { "team1.player1": players[1] },
-                        { "team1.player2": players[0] }
-                      ]
-                    }
+                    { "team1.won": true }
                   ]
                 },
-                { "team1.won": true }
-              ]
-            },
-            {
-              $and: [
                 {
-                  $or: [
+                  $and: [
                     {
-                      $and: [
-                        { "team2.player1": players[0] },
-                        { "team2.player2": players[1] }
+                      $or: [
+                        {
+                          $and: [
+                            { "team2.player1": players[0] },
+                            { "team2.player2": players[1] }
+                          ]
+                        },
+                        {
+                          $and: [
+                            { "team2.player1": players[1] },
+                            { "team2.player2": players[0] }
+                          ]
+                        }
                       ]
                     },
-                    {
-                      $and: [
-                        { "team2.player1": players[1] },
-                        { "team2.player2": players[0] }
-                      ]
-                    }
+                    { "team2.won": true }
                   ]
-                },
-                { "team2.won": true }
+                }
               ]
             }
           ]
@@ -103,47 +109,52 @@ if (Meteor.isClient) {
     function getTeamLossCount(players) {
       return Results.find(
         {
-          $or: [
+          $and : [
+            { ended: true },
             {
-              $and: [
+              $or: [
                 {
-                  $or: [
+                  $and: [
                     {
-                      $and: [
-                        { "team1.player1": players[0] },
-                        { "team1.player2": players[1] }
+                      $or: [
+                        {
+                          $and: [
+                            { "team1.player1": players[0] },
+                            { "team1.player2": players[1] }
+                          ]
+                        },
+                        {
+                          $and: [
+                            { "team1.player1": players[1] },
+                            { "team1.player2": players[0] }
+                          ]
+                        }
                       ]
                     },
-                    {
-                      $and: [
-                        { "team1.player1": players[1] },
-                        { "team1.player2": players[0] }
-                      ]
-                    }
+                    { "team2.won": true }
                   ]
                 },
-                { "team2.won": true }
-              ]
-            },
-            {
-              $and: [
                 {
-                  $or: [
+                  $and: [
                     {
-                      $and: [
-                        { "team2.player1": players[0] },
-                        { "team2.player2": players[1] }
+                      $or: [
+                        {
+                          $and: [
+                            { "team2.player1": players[0] },
+                            { "team2.player2": players[1] }
+                          ]
+                        },
+                        {
+                          $and: [
+                            { "team2.player1": players[1] },
+                            { "team2.player2": players[0] }
+                          ]
+                        }
                       ]
                     },
-                    {
-                      $and: [
-                        { "team2.player1": players[1] },
-                        { "team2.player2": players[0] }
-                      ]
-                    }
+                    { "team1.won": true }
                   ]
-                },
-                { "team1.won": true }
+                }
               ]
             }
           ]
@@ -153,49 +164,54 @@ if (Meteor.isClient) {
     function getTeamTieCount(players) {
       return Results.find(
         {
-          $or: [
+          $and: [
+            { ended: true },
             {
-              $and: [
+              $or: [
                 {
-                  $or: [
+                  $and: [
                     {
-                      $and: [
-                        { "team1.player1": players[0] },
-                        { "team1.player2": players[1] }
+                      $or: [
+                        {
+                          $and: [
+                            { "team1.player1": players[0] },
+                            { "team1.player2": players[1] }
+                          ]
+                        },
+                        {
+                          $and: [
+                            { "team1.player1": players[1] },
+                            { "team1.player2": players[0] }
+                          ]
+                        }
                       ]
                     },
-                    {
-                      $and: [
-                        { "team1.player1": players[1] },
-                        { "team1.player2": players[0] }
-                      ]
-                    }
+                    { "team1.won": false },
+                    { "team2.won": false }
                   ]
                 },
-                { "team1.won": false },
-                { "team2.won": false }
-              ]
-            },
-            {
-              $and: [
                 {
-                  $or: [
+                  $and: [
                     {
-                      $and: [
-                        { "team2.player1": players[0] },
-                        { "team2.player2": players[1] }
+                      $or: [
+                        {
+                          $and: [
+                            { "team2.player1": players[0] },
+                            { "team2.player2": players[1] }
+                          ]
+                        },
+                        {
+                          $and: [
+                            { "team2.player1": players[1] },
+                            { "team2.player2": players[0] }
+                          ]
+                        }
                       ]
                     },
-                    {
-                      $and: [
-                        { "team2.player1": players[1] },
-                        { "team2.player2": players[0] }
-                      ]
-                    }
+                    { "team1.won": false },
+                    { "team2.won": false }
                   ]
-                },
-                { "team1.won": false },
-                { "team2.won": false }
+                }
               ]
             }
           ]
@@ -208,17 +224,22 @@ if (Meteor.isClient) {
 
       goalsAgainstTeam1 = Results
         .find({
-          $or: [
+          $and : [
+            { ended: true },
             {
-              $and: [
-                { "team1.player1": players[0] },
-                { "team1.player2": players[1] }
-              ]
-            },
-            {
-              $and: [
-                { "team1.player1": players[1] },
-                { "team1.player2": players[0] }
+              $or: [
+                {
+                  $and: [
+                    { "team1.player1": players[0] },
+                    { "team1.player2": players[1] }
+                  ]
+                },
+                {
+                  $and: [
+                    { "team1.player1": players[1] },
+                    { "team1.player2": players[0] }
+                  ]
+                }
               ]
             }
           ]
@@ -233,17 +254,22 @@ if (Meteor.isClient) {
 
       goalsAgainstTeam2 = Results
         .find({
-          $or: [
+          $and : [
+            { ended: true },
             {
-              $and: [
-                { "team2.player1": players[0] },
-                { "team2.player2": players[1] }
-              ]
-            },
-            {
-              $and: [
-                { "team2.player1": players[1] },
-                { "team2.player2": players[0] }
+              $or: [
+                {
+                  $and: [
+                    { "team2.player1": players[0] },
+                    { "team2.player2": players[1] }
+                  ]
+                },
+                {
+                  $and: [
+                    { "team2.player1": players[1] },
+                    { "team2.player2": players[0] }
+                  ]
+                }
               ]
             }
           ]
@@ -265,17 +291,22 @@ if (Meteor.isClient) {
 
       goalsForTeam1 = Results
         .find({
-          $or: [
+          $and : [
+            { ended: true },
             {
-              $and: [
-                { "team1.player1": players[0] },
-                { "team1.player2": players[1] }
-              ]
-            },
-            {
-              $and: [
-                { "team1.player1": players[1] },
-                { "team1.player2": players[0] }
+              $or: [
+                {
+                  $and: [
+                    { "team1.player1": players[0] },
+                    { "team1.player2": players[1] }
+                  ]
+                },
+                {
+                  $and: [
+                    { "team1.player1": players[1] },
+                    { "team1.player2": players[0] }
+                  ]
+                }
               ]
             }
           ]
@@ -290,17 +321,22 @@ if (Meteor.isClient) {
 
       goalsForTeam2 = Results
         .find({
-          $or: [
+          $and : [
+            { ended: true },
             {
-              $and: [
-                { "team2.player1": players[0] },
-                { "team2.player2": players[1] }
-              ]
-            },
-            {
-              $and: [
-                { "team2.player1": players[1] },
-                { "team2.player2": players[0] }
+              $or: [
+                {
+                  $and: [
+                    { "team2.player1": players[0] },
+                    { "team2.player2": players[1] }
+                  ]
+                },
+                {
+                  $and: [
+                    { "team2.player1": players[1] },
+                    { "team2.player2": players[0] }
+                  ]
+                }
               ]
             }
           ]
@@ -346,27 +382,32 @@ if (Meteor.isClient) {
     function getPlayerWinCount(playerName) {
       return Results.find(
         {
-          $or: [
+          $and: [
+            { ended: true },
             {
-              $and: [
+              $or: [
                 {
-                  $or: [
-                    { "team1.player1": playerName },
-                    { "team1.player2": playerName }
+                  $and: [
+                    {
+                      $or: [
+                        { "team1.player1": playerName },
+                        { "team1.player2": playerName }
+                      ]
+                    },
+                    { "team1.won": true}
                   ]
                 },
-                { "team1.won": true}
-              ]
-            },
-            {
-              $and: [
                 {
-                  $or: [
-                    { "team2.player1": playerName },
-                    { "team2.player2": playerName }
+                  $and: [
+                    {
+                      $or: [
+                        { "team2.player1": playerName },
+                        { "team2.player2": playerName }
+                      ]
+                    },
+                    { "team2.won": true}
                   ]
-                },
-                { "team2.won": true}
+                }
               ]
             }
           ]
@@ -376,27 +417,32 @@ if (Meteor.isClient) {
     function getPlayerLossCount(playerName) {
       return Results.find(
         {
-          $or: [
+          $and: [
+            { ended: true },
             {
-              $and: [
+              $or: [
                 {
-                  $or: [
-                    { "team1.player1": playerName },
-                    { "team1.player2": playerName }
+                  $and: [
+                    {
+                      $or: [
+                        { "team1.player1": playerName },
+                        { "team1.player2": playerName }
+                      ]
+                    },
+                    { "team2.won": true}
                   ]
                 },
-                { "team2.won": true}
-              ]
-            },
-            {
-              $and: [
                 {
-                  $or: [
-                    { "team2.player1": playerName },
-                    { "team2.player2": playerName }
+                  $and: [
+                    {
+                      $or: [
+                        { "team2.player1": playerName },
+                        { "team2.player2": playerName }
+                      ]
+                    },
+                    { "team1.won": true}
                   ]
-                },
-                { "team1.won": true}
+                }
               ]
             }
           ]
@@ -407,6 +453,7 @@ if (Meteor.isClient) {
       return Results.find(
         {
           $and: [
+            { ended: true },
             { "team1.won": false},
             { "team2.won": false},
             {
@@ -427,9 +474,14 @@ if (Meteor.isClient) {
 
       goalsAgainstTeam1 = Results
         .find({
-          $or: [
-            { "team1.player1": playerName },
-            { "team1.player2": playerName }
+          $and: [
+            { ended: true },
+            {
+              $or: [
+                { "team1.player1": playerName },
+                { "team1.player2": playerName }
+              ]
+            }
           ]
         }).fetch()
         .map(function (result) { 
@@ -442,9 +494,14 @@ if (Meteor.isClient) {
 
       goalsAgainstTeam2 = Results
         .find({
-          $or: [
-            { "team2.player1": playerName },
-            { "team2.player2": playerName }
+          $and: [
+            { ended: true },
+            {
+              $or: [
+                { "team2.player1": playerName },
+                { "team2.player2": playerName }
+              ]
+            }
           ]
         }).fetch()
         .map(function (result) { 
@@ -464,9 +521,14 @@ if (Meteor.isClient) {
 
       goalsForTeam1 = Results
         .find({
-          $or: [
-            { "team1.player1": playerName },
-            { "team1.player2": playerName }
+          $and: [
+            { ended: true },
+            {
+              $or: [
+                { "team1.player1": playerName },
+                { "team1.player2": playerName }
+              ]
+            }
           ]
         }).fetch()
         .map(function (result) { 
@@ -479,9 +541,14 @@ if (Meteor.isClient) {
 
       goalsForTeam2 = Results
         .find({
-          $or: [
-            { "team2.player1": playerName },
-            { "team2.player2": playerName }
+          $and: [
+            { ended: true },
+            {
+              $or: [
+                { "team2.player1": playerName },
+                { "team2.player2": playerName }
+              ]
+            }
           ]
         }).fetch()
         .map(function (result) { 
@@ -581,7 +648,8 @@ if (Meteor.isClient) {
         team2 = {
           player1: template.$('.selected[data-name="team[1]player[0]"]').html(),
           player2: template.$('.selected[data-name="team[1]player[1]"]').html()
-        };
+        },
+        ended = score1 !== 0 || score2 !== 0;
 
       Results.update(this._id, {$set: {
         date: template.$('[name="date"]').val(),
@@ -598,7 +666,8 @@ if (Meteor.isClient) {
           score: score2,
           won: score1 < score2,
           nationality: getTeamByPlayers([team2.player1, team2.player2]).code
-        }
+        },
+        ended: ended
       }});
     }
   });
