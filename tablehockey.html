@@ -119,7 +119,7 @@
 </template>
 
 <template name="result">
-	<li class="result-container card">
+	<li class="result-container card {{#if ended}}ended{{/if}}">
 		<div class="date-score-container clearfix">
 			<div class="date-container fifty">
 				<div class="input-group date">
@@ -143,7 +143,7 @@
 		</div>
 		<div class="teams-container clearfix {{#unless hasWinner}}open{{/unless}}">
 			<div class="team-container fifty">
-				<div class="player-selector-container{{#if team1.won}} winner{{/if}}">
+				<div class="player-selector-container {{#if team1.won}}winner{{/if}}">
 					{{> playerButtons teamNumber="0" playerNumber="0" selectedPlayer=team1.player1}}
 					{{> playerButtons teamNumber="0" playerNumber="1" selectedPlayer=team1.player2}}
 				</div>

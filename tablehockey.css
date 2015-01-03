@@ -138,6 +138,16 @@ button,
 .result-container {
 	padding-top: 20px;
 	position: relative;
+	opacity: 1;
+	transition: opacity 0.2s linear;
+}
+
+.result-container.ended {
+	opacity: 0.6;
+}
+
+.result-container.ended:hover {
+	opacity: 1;
 }
 
 .delete-button {
@@ -228,7 +238,7 @@ button,
 
 .flag-bg {
 	background-repeat: no-repeat;
-	background-color: transparent;
+	background-color: #fff;
 }
 
 .flag-ca {
