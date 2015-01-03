@@ -7,10 +7,17 @@ if (Meteor.isClient) {
 
   function getNewResult() {
     var players = Players.find().fetch(),
-        now = new Date();
+        now = new Date(),
+        date;
+
+    date = now.getFullYear() +
+      '-' +
+      ('0' + +(now.getMonth() + 1)).slice(-2) +
+      '-' +
+      ('0' + now.getDate()).slice(-2);
     
     return {
-      date: now.getFullYear() + '-' + +(now.getMonth() + 1) + '-' + now.getDate(),
+      date: date,
       team1: {
         player1: players[0].name,
         player2: players[1].name,
