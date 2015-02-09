@@ -8,6 +8,7 @@
 </head>
 <body>
 	{{> navigation}}
+	{{> tournaments}}
 	<div id="content-container">
 		{{> results}}
 		{{> stats}}
@@ -30,6 +31,22 @@
 			{{> loginButtons align="right"}}
 		</div>
 	</div>
+</template>
+
+<template name="tournaments">
+	{{#if tournaments.count}}
+	<div id="tournaments-container">
+		<ul>
+			{{#each tournaments}}
+			{{> tournament}}
+			{{/each}}
+		</ul>
+	</div>
+	{{/if}}
+</template>
+
+<template name="tournament">
+	<li class="tournament {{#if selected}}selected{{/if}}">{{name}}</li>
 </template>
 
 <template name="stats">

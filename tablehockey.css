@@ -73,11 +73,33 @@ button,
 
 /* END OF NAVIGATION */
 
-/* CONTENT */
+/* TOURNAMENTS */
 
-#content-container {
-	padding-top: 80px;
+#tournaments-container {
+	padding-top: 56px;
+	margin-bottom: 20px;
+	background-color: #eee;
+	border-bottom: 1px solid #d8d8d8;
 }
+
+#tournaments-container ul {
+	overflow: hidden;
+}
+
+.tournament {
+	float: left;
+	padding: 10px 20px;
+}
+
+.tournament.selected,
+.tournament:hover {
+	background-color: #5cb85c;
+	color: #fff;
+}
+
+/* END OF TOURNAMENTS */
+
+/* CONTENT */
 
 /* END OF CONTENT */
 
@@ -272,8 +294,9 @@ button,
 /* RESPONSIVE */
 
 @media screen and (max-width: 750px) {
-	#content-container {
-		padding-top: 55px;
+	#tournaments-container {
+		margin-bottom: 0;
+		border: 0;
 	}
 
 	.card {

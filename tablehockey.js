@@ -1,6 +1,7 @@
 Results = new Mongo.Collection('results');
 Players = new Mongo.Collection('players');
 Teams = new Mongo.Collection('teams');
+Tournaments = new Mongo.Collection('tournaments');
 
 if (Meteor.isClient) {
   var defaultContent = 'results';
@@ -601,11 +602,31 @@ if (Meteor.isClient) {
     return team;
   }
 
-  Session.setDefault('shownContent', defaultContent);
-
   Meteor.subscribe('players');
   Meteor.subscribe('teams');
   Meteor.subscribe('results');
+  Meteor.subscribe('tournaments');
+
+  Session.setDefault('shownContent', defaultContent);
+  Session.setDefault('activeTournament', 'initial games');
+
+  Template.tournaments.helpers({
+    tournaments: function () {
+      return Tournaments.find();
+    }
+  });
+
+  Template.tournament.helpers({
+    selected: function () {
+      return this.name === Session.get('activeTournament');
+    }
+  });
+
+  Template.tournament.events({
+    "click .tournament": function (event, template) {
+      Session.set('activeTournament', template.data.name);
+    }
+  });
 
   Template.results.helpers({
     results: function () {
@@ -823,6 +844,22 @@ if (Meteor.isServer) {
     }
   }
 
+  function initTournaments() {
+    var tournaments = Tournaments.find().fetch();
+
+    if (_.isEmpty(tournaments)) {
+      Tournaments.insert({
+        name: 'initial games',
+        ended: true
+      });
+
+      Tournaments.insert({
+        name: 'round two',
+        ended: false
+      });
+    }
+  }
+
   Accounts.validateLoginAttempt(function (info) {
     var allowedEmails = [
       'atikenny@gmail.com',
@@ -837,6 +874,7 @@ if (Meteor.isServer) {
   Meteor.startup(function () {
     initPlayers();
     initTeams();
+    initTournaments();
   });
 
   Meteor.publish('results', function () {
@@ -854,6 +892,12 @@ if (Meteor.isServer) {
   Meteor.publish('teams', function () {
     if (this.userId) {
       return Teams.find();
+    }
+  });
+
+  Meteor.publish('tournaments', function () {
+    if (this.userId) {
+      return Tournaments.find();
     }
   });
 
