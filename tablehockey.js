@@ -617,8 +617,8 @@ if (Meteor.isClient) {
   });
 
   Template.result.helpers({
-    hasWinner: function () {
-      return this.team1.won || this.team2.won;
+    hasStarted: function () {
+      return this.team1.score || this.team2.score;
     }
   });
 

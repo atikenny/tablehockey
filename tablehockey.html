@@ -141,7 +141,7 @@
 				<span aria-hidden="true"></span>
 			</button>
 		</div>
-		<div class="teams-container clearfix {{#unless hasWinner}}open{{/unless}}">
+		<div class="teams-container clearfix {{#unless hasStarted}}open{{/unless}}">
 			<div class="team-container fifty">
 				<div class="player-selector-container {{#if team1.won}}winner{{/if}}">
 					{{> playerButtons teamNumber="0" playerNumber="0" selectedPlayer=team1.player1}}
