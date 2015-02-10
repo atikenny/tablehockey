@@ -33,7 +33,8 @@ if (Meteor.isClient) {
         won: false,
         nationality: getTeamByPlayers([players[2].name, players[3].name]).code
       },
-      ended: false
+      ended: false,
+      tournament: Session.get('activeTournament')
     };
   }
 
@@ -102,7 +103,8 @@ if (Meteor.isClient) {
                   ]
                 }
               ]
-            }
+            },
+            { tournament: Session.get('activeTournament') }
           ]
         }).count();
     }
@@ -157,7 +159,8 @@ if (Meteor.isClient) {
                   ]
                 }
               ]
-            }
+            },
+            { tournament: Session.get('activeTournament') }
           ]
         }).count();
     }
@@ -214,7 +217,8 @@ if (Meteor.isClient) {
                   ]
                 }
               ]
-            }
+            },
+            { tournament: Session.get('activeTournament') }
           ]
         }).count();
     }
@@ -242,7 +246,8 @@ if (Meteor.isClient) {
                   ]
                 }
               ]
-            }
+            },
+            { tournament: Session.get('activeTournament') }
           ]
         }).fetch()
         .map(function (result) { 
@@ -272,7 +277,8 @@ if (Meteor.isClient) {
                   ]
                 }
               ]
-            }
+            },
+            { tournament: Session.get('activeTournament') }
           ]
         }).fetch()
         .map(function (result) { 
@@ -309,7 +315,8 @@ if (Meteor.isClient) {
                   ]
                 }
               ]
-            }
+            },
+            { tournament: Session.get('activeTournament') }
           ]
         }).fetch()
         .map(function (result) { 
@@ -339,7 +346,8 @@ if (Meteor.isClient) {
                   ]
                 }
               ]
-            }
+            },
+            { tournament: Session.get('activeTournament') }
           ]
         }).fetch()
         .map(function (result) { 
@@ -410,7 +418,8 @@ if (Meteor.isClient) {
                   ]
                 }
               ]
-            }
+            },
+            { tournament: Session.get('activeTournament') }
           ]
         }).count();
     }
@@ -445,7 +454,8 @@ if (Meteor.isClient) {
                   ]
                 }
               ]
-            }
+            },
+            { tournament: Session.get('activeTournament') }
           ]
         }).count();
     }
@@ -464,7 +474,8 @@ if (Meteor.isClient) {
                 { "team2.player1": playerName },
                 { "team2.player2": playerName }
               ]
-            }
+            },
+            { tournament: Session.get('activeTournament') }
           ]
         }).count();
     }
@@ -482,7 +493,8 @@ if (Meteor.isClient) {
                 { "team1.player1": playerName },
                 { "team1.player2": playerName }
               ]
-            }
+            },
+            { tournament: Session.get('activeTournament') }
           ]
         }).fetch()
         .map(function (result) { 
@@ -502,7 +514,8 @@ if (Meteor.isClient) {
                 { "team2.player1": playerName },
                 { "team2.player2": playerName }
               ]
-            }
+            },
+            { tournament: Session.get('activeTournament') }
           ]
         }).fetch()
         .map(function (result) { 
@@ -529,7 +542,8 @@ if (Meteor.isClient) {
                 { "team1.player1": playerName },
                 { "team1.player2": playerName }
               ]
-            }
+            },
+            { tournament: Session.get('activeTournament') }
           ]
         }).fetch()
         .map(function (result) { 
@@ -549,7 +563,8 @@ if (Meteor.isClient) {
                 { "team2.player1": playerName },
                 { "team2.player2": playerName }
               ]
-            }
+            },
+            { tournament: Session.get('activeTournament') }
           ]
         }).fetch()
         .map(function (result) { 
@@ -630,7 +645,7 @@ if (Meteor.isClient) {
 
   Template.results.helpers({
     results: function () {
-      return Results.find({}, { sort: { date: -1 } });
+      return Results.find({ tournament: Session.get('activeTournament') }, { sort: { date: -1 } });
     },
     show: function () {
       return Session.get('shownContent') === 'results';
@@ -845,7 +860,8 @@ if (Meteor.isServer) {
   }
 
   function initTournaments() {
-    var tournaments = Tournaments.find().fetch();
+    var tournaments = Tournaments.find().fetch(),
+        resultsWithoutTournament = Results.find({ tournament: undefined }).fetch();
 
     if (_.isEmpty(tournaments)) {
       Tournaments.insert({
@@ -858,6 +874,12 @@ if (Meteor.isServer) {
         ended: false
       });
     }
+
+    _.each(resultsWithoutTournament, function (element) {
+      Results.update(element._id, {$set: {
+        tournament: 'initial games'
+      }});
+    });
   }
 
   Accounts.validateLoginAttempt(function (info) {
@@ -902,6 +924,18 @@ if (Meteor.isServer) {
   });
 
   Results.allow({
+    insert: function (userId) {
+      return !!userId;
+    },
+    update: function (userId) {
+      return !!userId;
+    },
+    remove: function (userId) {
+      return !!userId;
+    }
+  });
+
+  Tournaments.allow({
     insert: function (userId) {
       return !!userId;
     },
