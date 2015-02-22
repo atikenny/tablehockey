@@ -226,32 +226,27 @@ button,
 	display: block;
 }
 
-.player-selector-container {
+.team-selector-container {
 	padding: 10px 20px;
+	display: table;
+	width: 100%;
 }
 
-.player-selector-container.winner {
+.team-selector-container.winner {
 	background-color: #e6f6e4;
 }
 
-.player {
-	text-overflow: ellipsis;
-	overflow: hidden;
+.team {
+	display: table-cell;
+	line-height: 60px;
+	background-size: 50%;
+	background-position: center center;
+	background-repeat: no-repeat;
+	opacity: 0.1;
 }
 
-.player.selected {
-	color: #fff;
-	background-color: #5cb85c;
-	border-color: #4cae4c;
-}
-
-.player.selected:hover {
-	background-color: #449d44;
-	border-color: #398439;
-}
-
-.players-container {
-	margin: 8px 0;
+.team.selected {
+	opacity: 1;
 }
 
 /* END OF TEAMS */

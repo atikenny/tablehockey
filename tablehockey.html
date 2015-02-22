@@ -160,15 +160,17 @@
 		</div>
 		<div class="teams-container clearfix {{#unless hasStarted}}open{{/unless}}">
 			<div class="team-container fifty">
-				<div class="player-selector-container {{#if team1.won}}winner{{/if}}">
-					{{> playerButtons teamNumber="0" playerNumber="0" selectedPlayer=team1.player1}}
-					{{> playerButtons teamNumber="0" playerNumber="1" selectedPlayer=team1.player2}}
+				<div class="team-selector-container {{#if team1.won}}winner{{/if}}">
+					{{#each teams}}
+					<div class="team flag-{{code}} {{isSelected code ../team1.nationality}}" data-team-number="1" data-team-name="{{name}}" title="{{players}}">&nbsp;</div>
+					{{/each}}
 				</div>
 			</div>
 			<div class="team-container fifty">
-				<div class="player-selector-container{{#if team2.won}} winner{{/if}}">
-					{{> playerButtons teamNumber="1" playerNumber="0" selectedPlayer=team2.player1}}
-					{{> playerButtons teamNumber="1" playerNumber="1" selectedPlayer=team2.player2}}
+				<div class="team-selector-container{{#if team2.won}} winner{{/if}}">
+					{{#each teams}}
+					<div class="team flag-{{code}} {{isSelected code ../team2.nationality}}" data-team-number="2" data-team-name="{{name}}" title="{{players}}">&nbsp;</div>
+					{{/each}}
 				</div>
 			</div>
 		</div>
@@ -176,12 +178,4 @@
 			<span aria-hidden="true">&times;</span>
 		</button>
 	</li>
-</template>
-
-<template name="playerButtons">
-	<div class="players-container btn-group btn-group-sm btn-group-justified" role="group">
-		{{#each allPlayers}}
-		<div class="player btn btn-default {{isSelected name ../selectedPlayer}}" role="button" data-name="team[{{../teamNumber}}]player[{{../playerNumber}}]">{{name}}</div>
-		{{/each}}
-	</div>
 </template>
