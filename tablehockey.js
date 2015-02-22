@@ -678,7 +678,7 @@ if (Meteor.isServer) {
   }
 
   function getInitialTeams() {
-    return ['hungary', 'ukraine', 'hungary', 'greatbritain', 'czech', 'djibuty'];
+    return ['hungary', 'ukraine', 'hungary', 'greatbritain', 'czech', 'djibuty', 'canada'];
   }
 
   function initTournaments() {
