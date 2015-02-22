@@ -238,8 +238,8 @@ button,
 
 .team {
 	display: table-cell;
-	line-height: 60px;
-	background-size: 50%;
+	line-height: 30px;
+	background-size: 80%;
 	background-position: center center;
 	background-repeat: no-repeat;
 	opacity: 0.1;
@@ -278,8 +278,32 @@ button,
 	background-image: url('/img/flags/hu.svg');
 }
 
+.flag-sk {
+	background-image: url('/img/flags/sk.svg');
+}
+
 .flag-ua {
 	background-image: url('/img/flags/ua.svg');
+}
+
+.flag-fr {
+	background-image: url('/img/flags/fr.svg');
+}
+
+.flag-ge {
+	background-image: url('/img/flags/ge.svg');
+}
+
+.flag-pl {
+	background-image: url('/img/flags/pl.svg');
+}
+
+.flag-us {
+	background-image: url('/img/flags/us.svg');
+}
+
+.flag-ro {
+	background-image: url('/img/flags/ro.svg');
 }
 
 /* END OF FLAGS */
