@@ -239,7 +239,7 @@ button,
 .team {
 	display: table-cell;
     min-width: 1em;
-	line-height: 30px;
+	height: 30px;
 	background-size: auto 100%;
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -256,8 +256,8 @@ button,
     background: rgba(245,245,245,.8);
 }
 
-.team.selected {
-    opacity: 1;
+.team.selected:before {
+    background: rgba(245,245,245,0);
 }
 
 .team span {

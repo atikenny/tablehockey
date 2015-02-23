@@ -487,6 +487,9 @@ if (Meteor.isClient) {
     },
     teams: function () {
       return Teams.find({ name: {$in: getActiveTournamentTeams()} });
+    },
+    player: function (index, players) {
+      return players[index];
     }
   });
 
@@ -518,15 +521,15 @@ if (Meteor.isClient) {
       Results.update(this._id, {$set: {
         date: template.$('[name="date"]').val(),
         team1: {
-          player1: team1.player1,
-          player2: team1.player2,
+          player1: team1.players[0],
+          player2: team1.players[1],
           score: score1,
           won: score1 > score2,
           nationality: team1.code
         },
         team2: {
-          player1: team2.player1,
-          player2: team2.player2,
+          player1: team2.players[0],
+          player2: team2.players[1],
           score: score2,
           won: score1 < score2,
           nationality: team2.code
