@@ -162,14 +162,14 @@
 			<div class="team-container fifty">
 				<div class="team-selector-container {{#if team1.won}}winner{{/if}}">
 					{{#each teams}}
-					<div class="team flag-{{code}} {{isSelected code ../team1.nationality}}" data-team-number="1" data-team-name="{{name}}" title="{{players}}">&nbsp;</div>
+					<div class="team flag-{{code}} {{isSelected code ../team1.nationality}}" data-team-number="1" data-team-name="{{name}}"><span><i class="glyphicon glyphicon-flash"></i> {{players[0]}} <i class="glyphicon glyphicon-record"></i> {{players[1]}}</span></div>
 					{{/each}}
 				</div>
 			</div>
 			<div class="team-container fifty">
 				<div class="team-selector-container{{#if team2.won}} winner{{/if}}">
 					{{#each teams}}
-					<div class="team flag-{{code}} {{isSelected code ../team2.nationality}}" data-team-number="2" data-team-name="{{name}}" title="{{players}}">&nbsp;</div>
+					<div class="team flag-{{code}} {{isSelected code ../team2.nationality}}" data-team-number="2" data-team-name="{{name}}"><span><i class="glyphicon glyphicon-flash"></i> {{players[0]}} <i class="glyphicon glyphicon-record"></i> {{players[1]}}</span></div>
 					{{/each}}
 				</div>
 			</div>
