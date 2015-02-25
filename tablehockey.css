@@ -89,6 +89,7 @@ button,
 .tournament {
 	float: left;
 	padding: 10px 20px;
+	cursor: pointer;
 }
 
 .tournament.selected,

@@ -8,11 +8,13 @@
 </head>
 <body>
 	{{> navigation}}
-	{{> tournaments}}
-	<div id="content-container">
-		{{> results}}
-		{{> stats}}
-	</div>
+	{{#if currentUser}}
+		{{> tournaments}}
+		<div id="content-container">
+			{{> results}}
+			{{> stats}}
+		</div>
+	{{/if}}
 </body>
 
 <template name="navigation">
@@ -34,7 +36,6 @@
 </template>
 
 <template name="tournaments">
-	{{#if tournaments.count}}
 	<div id="tournaments-container">
 		<ul>
 			{{#each tournaments}}
@@ -42,7 +43,6 @@
 			{{/each}}
 		</ul>
 	</div>
-	{{/if}}
 </template>
 
 <template name="tournament">
@@ -51,7 +51,6 @@
 
 <template name="stats">
 	<div id="stats-container" class="{{#if show}}open{{/if}}">
-		{{#if teamStats.length}}
 		<div id="team-stats-container" class="stat-container card table-responsive">
 			<h2 class="stats-title bg-primary">Team stats</h2>
 			<div class="stats-table-container">
@@ -86,8 +85,6 @@
 				</table>
 			</div>
 		</div>
-		{{/if}}
-		{{#if playerStats.length}}
 		<div id="player-stats-container" class="stat-container card table-responsive">
 			<h2 class="stats-title bg-info">Player stats</h2>
 			<div class="stats-table-container">
@@ -119,12 +116,10 @@
 				</table>
 			</div>
 		</div>
-		{{/if}}
 	</div>
 </template>
 
 <template name="results">
-	{{#if results.count}}
 	<div id="results-container" class="{{#if show}}open{{/if}}">
 		<ul>
 			{{#each results}}
@@ -132,7 +127,6 @@
 			{{/each}}
 		</ul>
 	</div>
-	{{/if}}
 </template>
 
 <template name="result">
