@@ -292,6 +292,12 @@ button,
 	transform: none;
 }
 
+.team:first-child:hover span {
+	right: auto;
+	left: 0;
+	transform: none;
+}
+
 .team span:before {
 	content: '';
 	position: absolute;
@@ -306,7 +312,12 @@ button,
 
 .team:last-child span:before {
 	left: auto;
-	right: 30px;
+	right: 10px;
+}
+
+.team:first-child span:before {
+	right: auto;
+	left: 20px;
 }
 
 /* END OF TEAMS */
