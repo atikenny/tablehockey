@@ -238,12 +238,12 @@ button,
 
 .team {
 	display: table-cell;
-    min-width: 1em;
+	min-width: 1em;
 	height: 30px;
 	background-size: auto 100%;
 	background-position: center center;
 	background-repeat: no-repeat;
-    position: relative;
+	position: relative;
 }
 
 .team:before {
@@ -253,7 +253,11 @@ button,
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background: rgba(245,245,245,.9);
+	background: rgba(245, 245, 245, .9);
+}
+
+.winner .team:before {
+	background: rgba(230, 246, 228, .9);
 }
 
 .team.selected:before {
@@ -267,43 +271,42 @@ button,
 	left: -9999em;
 	z-index: 100;
 	background: #fff;
-	box-shadow: 0 1px 1px 0 rgba(0,0,0,.4);
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .4);
 	border-radius: 3px;
 	white-space: nowrap;
-	padding: 0 5px;
+	padding: 2px 5px;
+	font-size: 12px;
 	transition: opacity .2s ease-out, bottom .2s ease-out;
 }
 
-.team-selector-container .team:last-child:hover span,
-.team-selector-container .team:nth-last-child(2):hover span,
-.team-selector-container .team:nth-last-child(3):hover span {
-	right: 40%;
-	left: auto;
-}
-
-.team-selector-container .team:last-child span:before,
-.team-selector-container .team:nth-last-child(2) span:before,
-.team-selector-container .team:nth-last-child(3) span:before {
-	left: auto;
-	right: 10px;
-}
-
 .team:hover span {
-	left: 40%;
+	left: 50%;
+	transform: translateX(-50%);
 	opacity: 1;
 	bottom: -40px;
+}
+
+.team:last-child:hover span {
+	left: auto;
+	right: 0;
+	transform: none;
 }
 
 .team span:before {
 	content: '';
 	position: absolute;
 	top: 0;
-	left: 10px;
+	left: 50%;
 	width: 0;
 	height: 0;
 	margin: -12px 0 0 -6px;
 	border: 6px solid transparent;
 	border-bottom-color: #fff;
+}
+
+.team:last-child span:before {
+	left: auto;
+	right: 30px;
 }
 
 /* END OF TEAMS */
@@ -387,7 +390,7 @@ button,
 	.date-container, .scores-container {
 		width: 100%;
 	}
-	
+
 	.team-container {
 		width: 100%;
 	}
