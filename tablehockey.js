@@ -570,18 +570,10 @@ if (Meteor.isClient) {
     teamStats: function () {
       var stats = getStats();
 
-      stats.teamStats.sort(function (a, b) {
-        return b.points - a.points;
-      });
-
       return stats.teamStats;
     },
     playerStats: function () {
       var stats = getStats();
-
-      stats.playerStats.sort(function (a, b) {
-        return b.points - a.points;
-      });
 
       return stats.playerStats;
     },
