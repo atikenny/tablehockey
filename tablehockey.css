@@ -315,7 +315,7 @@ button,
 
 .flag-bg {
 	background-repeat: no-repeat;
-	background-color: #fff;
+	background-color: transparent;
 }
 
 .flag-ca {
@@ -398,6 +398,10 @@ button,
 	#team-stats-container .flag-bg {
 		left: 0;
 	}
+
+    #team-stats-container .player-names {
+        display: none;
+    }
 }
 
 /* END OF RESPONSIVE */
