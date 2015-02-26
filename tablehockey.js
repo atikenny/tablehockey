@@ -4,7 +4,8 @@ Teams = new Mongo.Collection('teams');
 Tournaments = new Mongo.Collection('tournaments');
 
 if (Meteor.isClient) {
-  var defaultContent = 'results';
+  var defaultContent = 'results',
+    j = 0;
 
   Session.setDefault('shownContent', defaultContent);
   Session.setDefault('activeTournament', 'round two');
@@ -449,6 +450,12 @@ if (Meteor.isClient) {
     Session.set('undoResults', undoResults);
   }
 
+  function undoPreviousResultsActionBatch(actionCount) {
+    while (actionCount--) {
+      undoPreviousResultsAction();
+    }
+  }
+
   function undoPreviousResultsAction() {
     var undoResults = Session.get('undoResults'),
       previousResultsAction = undoResults[(undoResults.length - 1)];
@@ -468,14 +475,43 @@ if (Meteor.isClient) {
         break;
     }
 
+    // undo results may change
+    // so we should get it again
+    undoResults = Session.get('undoResults');
     undoResults.pop();
     Session.set('undoResults', undoResults);
   }
 
+  function getUndoResultsFromInsert(resultsID) {
+    var undoResults = Session.get('undoResults'),
+      foundUndoResultIndex = false;
+
+    undoResults.some(function (element, index) {
+      if (element.actionType === 'insert' && element.resultObject._id === resultsID) {
+        foundUndoResultIndex = index;
+      }
+
+      return foundUndoResultIndex;
+    });
+
+    return foundUndoResultIndex;
+  }
+
   function undoResultsDelete(resultObject) {
+    var newID,
+      undoResults = Session.get('undoResults'),
+      undoResultFromInsertIndex = getUndoResultsFromInsert(resultObject._id);
+
     delete resultObject._id;
 
-    Results.insert(resultObject);
+    newID = Results.insert(resultObject);
+
+    // if the result came from an insert
+    // we need to update the id to the new one
+    if (undoResultFromInsertIndex !== false) {
+      undoResults[undoResultFromInsertIndex].resultObject._id = newID;
+      Session.set('undoResults', undoResults);
+    }
   }
 
   function undoResultsUpdate(resultObject) {
@@ -602,6 +638,9 @@ if (Meteor.isClient) {
     },
     noNew: function () {
       return Session.get('shownContent') != 'results';
+    },
+    undoResults: function () {
+      return Session.get('undoResults').slice(-10).reverse();
     }
   });
   
@@ -615,13 +654,17 @@ if (Meteor.isClient) {
     },
     "click #addButton": function () {
       if (Session.get('shownContent') === defaultContent) {
-        var newID = Results.insert(getNewResult());
+        var newID = Results.insert(getNewResult()),
+          newResult = Results.findOne(newID);
 
-        addToResultsUndo('insert', {_id: newID});
+        addToResultsUndo('insert', newResult);
       }
     },
     "click #undoButton": function () {
       undoPreviousResultsAction();
+    },
+    "click #undo-actions-list li": function (event) {
+      undoPreviousResultsActionBatch(($(event.currentTarget).index() + 1));
     }
   });
 
