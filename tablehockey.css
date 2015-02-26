@@ -20,6 +20,15 @@ button,
 	outline: none;
 }
 
+.btn {
+	opacity: 1;
+	transition: all .5s linear;
+}
+
+.btn.disabled {
+	opacity: .2;
+}
+
 .fifty {
 	float: left;
 	width: 50%;
@@ -52,6 +61,10 @@ button,
 
 #sign-in-label {
 	float: left;
+}
+
+#undoButton {
+	transform: scaleX(-1);
 }
 
 /* LOGIN BUTTONS */
@@ -144,8 +157,6 @@ button,
 }
 
 /* END OF STATS */
-
-/* END OF NAVIGATION */
 
 /* RESULTS */
 

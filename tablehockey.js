@@ -8,6 +8,7 @@ if (Meteor.isClient) {
 
   Session.setDefault('shownContent', defaultContent);
   Session.setDefault('activeTournament', 'round two');
+  Session.setDefault('undoResults', []);
 
   function getNewResult() {
     var teams = Teams.find({ name: {$in: getActiveTournamentTeams()} }).fetch(),
@@ -437,6 +438,58 @@ if (Meteor.isClient) {
     return tournaments && tournaments.teams || [];
   }
 
+  function addToResultsUndo(actionType, resultObject) {
+    var undoResults = Session.get('undoResults');
+
+    undoResults.push({
+      actionType: actionType,
+      resultObject: resultObject
+    });
+
+    Session.set('undoResults', undoResults);
+  }
+
+  function undoPreviousResultsAction() {
+    var undoResults = Session.get('undoResults'),
+      previousResultsAction = undoResults[(undoResults.length - 1)];
+
+    switch (previousResultsAction.actionType) {
+      case 'remove':
+        undoResultsDelete(previousResultsAction.resultObject);
+
+        break;
+      case 'update':
+        undoResultsUpdate(previousResultsAction.resultObject);
+
+        break;
+      case 'insert':
+        undoResultsInsert(previousResultsAction.resultObject);
+
+        break;
+    }
+
+    undoResults.pop();
+    Session.set('undoResults', undoResults);
+  }
+
+  function undoResultsDelete(resultObject) {
+    delete resultObject._id;
+
+    Results.insert(resultObject);
+  }
+
+  function undoResultsUpdate(resultObject) {
+    var id = resultObject._id;
+
+    delete resultObject._id;
+
+    Results.update(id, {$set: resultObject});
+  }
+
+  function undoResultsInsert(resultObject) {
+    Results.remove(resultObject._id);
+  }
+
   Meteor.subscribe('players');
   Meteor.subscribe('teams');
   Meteor.subscribe('results');
@@ -495,6 +548,8 @@ if (Meteor.isClient) {
 
   Template.result.events({
     "click .delete-button": function () {
+      addToResultsUndo('remove', this);
+      
       Results.remove(this._id);
     },
     "click .players-button": function (event, template) {
@@ -508,6 +563,8 @@ if (Meteor.isClient) {
         team1 = Teams.findOne({ name: team1Name }),
         team2 = Teams.findOne({ name: team2Name }),
         ended = score1 !== 0 || score2 !== 0;
+
+      addToResultsUndo('update', this);
 
       Results.update(this._id, {$set: {
         date: template.$('[name="date"]').val(),
@@ -539,6 +596,12 @@ if (Meteor.isClient) {
   Template.navigation.helpers({
     isActive: function (content) {
       return Session.get('shownContent') === content;
+    },
+    noUndo: function () {
+      return Session.get('undoResults').length === 0;
+    },
+    noNew: function () {
+      return Session.get('shownContent') != 'results';
     }
   });
   
@@ -552,8 +615,13 @@ if (Meteor.isClient) {
     },
     "click #addButton": function () {
       if (Session.get('shownContent') === defaultContent) {
-        Results.insert(getNewResult());
+        var newID = Results.insert(getNewResult());
+
+        addToResultsUndo('insert', {_id: newID});
       }
+    },
+    "click #undoButton": function () {
+      undoPreviousResultsAction();
     }
   });
 
