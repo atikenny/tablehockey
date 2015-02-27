@@ -452,7 +452,7 @@ button,
 }
 
 @media screen and (max-width: 480px) {
-	.login-display-name {
+	#login-buttons .login-display-name {
         display: none;
 	}
 }
