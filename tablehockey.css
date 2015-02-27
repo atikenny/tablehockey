@@ -211,14 +211,14 @@ button.clean {
 	padding-top: 20px;
 	position: relative;
 	opacity: 1;
-	transition: opacity 0.2s linear;
+	transition: opacity .2s linear;
 }
 
 .result-container.ended {
-	opacity: 0.6;
+	opacity: .6;
 }
 
-.result-container.ended:hover {
+.result-container.ended:hover:not(.locked) {
 	opacity: 1;
 }
 

@@ -141,7 +141,7 @@
 </template>
 
 <template name="result">
-	<li class="result-container card {{#if ended}}ended{{/if}}">
+	<li class="result-container card {{#if ended}}ended{{/if}} {{#if locked}}locked{{/if}}">
 		<button type="button" class="lock-button glyphicon glyphicon-ban-circle clean {{#if locked}}active{{/if}}"></button>
 		<fieldset disabled={{locked}}>
 			<div class="date-score-container clearfix">
