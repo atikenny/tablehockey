@@ -626,6 +626,9 @@ if (Meteor.isClient) {
 
       template.$('[data-team-number="' + teamNumber + '"]').removeClass('selected');
       event.target.classList.add('selected');
+    },
+    "click .lock-button": function () {
+      Results.update(this._id, {$set: { locked: !this.locked }});
     }
   });
 

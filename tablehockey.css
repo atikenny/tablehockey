@@ -20,6 +20,18 @@ button,
 	outline: none;
 }
 
+button.clean {
+	-webkit-appearance: none;
+	padding: 0;
+	cursor: pointer;
+	background: transparent;
+	border: 0;
+}
+
+[disabled] {
+	pointer-events: none;
+}
+
 .btn {
 	opacity: 1;
 	transition: all .2s linear;
@@ -214,6 +226,18 @@ button,
 	position: absolute;
 	top: 3px;
 	right: 10px;
+}
+
+.lock-button {
+	position: absolute;
+	opacity: .2;
+	top: 6px;
+	left: 10px;
+}
+
+.lock-button:hover,
+.lock-button.active {
+	opacity: .5;
 }
 
 .players-button {
