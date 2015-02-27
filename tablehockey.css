@@ -462,6 +462,10 @@ button.clean {
 /* RESPONSIVE */
 
 @media screen and (max-width: 750px) {
+    #login-buttons .login-display-name {
+        display: none;
+    }
+
     #tournaments-container {
         margin-bottom: 0;
         border: 0;
@@ -504,10 +508,6 @@ button.clean {
 
     .tournament {
         padding: 10px;
-    }
-
-    #login-buttons .login-display-name {
-        display: none;
     }
 
     #profile-picture {
