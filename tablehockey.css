@@ -171,18 +171,18 @@ button.clean {
 
 /* CONTENT */
 
-/* END OF CONTENT */
-
-/* STATS */
-
-#stats-container {
+.page {
     padding: 0 20px;
     display: none;
 }
 
-#stats-container.open {
+.page.open {
     display: block;
 }
+
+/* END OF CONTENT */
+
+/* STATS */
 
 #stats-container .stats-title {
     padding: 10px 20px;
@@ -215,15 +215,6 @@ button.clean {
 /* END OF STATS */
 
 /* RESULTS */
-
-#results-container {
-    padding: 0 20px;
-    display: none;
-}
-
-#results-container.open {
-    display: block;
-}
 
 .result-container {
     padding-top: 20px;
@@ -461,6 +452,36 @@ button.clean {
 
 /* RESPONSIVE */
 
+@media screen and (min-width: 1000px) {
+    .page {
+        display: block;
+        float: left;
+        width: 50%;
+    }
+
+    #stats-button-container {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 1000px), screen and (max-width: 750px) {
+    .date-container, .scores-container {
+        width: 100%;
+    }
+
+    .team-container {
+        width: 100%;
+    }
+
+    #team-stats-container .flag-bg {
+        left: 0;
+    }
+
+    #team-stats-container .player-names {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 750px) {
     #login-buttons .login-display-name {
         display: none;
@@ -476,24 +497,8 @@ button.clean {
         border-width: 1px 1px 0 1px;
     }
 
-    #results-container, #stats-container {
+    .page {
         padding: 0;
-    }
-
-    .date-container, .scores-container {
-        width: 100%;
-    }
-
-    .team-container {
-        width: 100%;
-    }
-
-    #team-stats-container .flag-bg {
-        left: 0;
-    }
-
-    #team-stats-container .player-names {
-        display: none;
     }
 }
 

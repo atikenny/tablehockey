@@ -64,7 +64,7 @@
 </template>
 
 <template name="stats">
-    <div id="stats-container" class="{{#if show}}open{{/if}}">
+    <div id="stats-container" class="page {{#if show}}open{{/if}}">
         <div id="team-stats-container" class="stat-container card table-responsive">
             <h2 class="stats-title bg-primary">Team stats</h2>
             <div class="stats-table-container">
@@ -134,7 +134,7 @@
 </template>
 
 <template name="results">
-    <div id="results-container" class="{{#if show}}open{{/if}}">
+    <div id="results-container" class="page {{#if show}}open{{/if}}">
         <ul>
             {{#each results}}
             {{> result}}
