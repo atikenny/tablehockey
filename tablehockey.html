@@ -1,189 +1,189 @@
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="mobile-web-app-capable" content="yes">
-	<meta name="theme-color" content="#337ab7">
-	<link rel="manifest" href="/json/web-app-config.json">
-	<link rel="icon" sizes="192x192" href="/img/icons/favicon.png">
-	<title>tablehockey.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#337ab7">
+    <link rel="manifest" href="/json/web-app-config.json">
+    <link rel="icon" sizes="192x192" href="/img/icons/favicon.png">
+    <title>tablehockey.com</title>
 </head>
 <body>
-	{{> navigation}}
-	{{#if currentUser}}
-		{{> tournaments}}
-		<div id="content-container">
-			{{> results}}
-			{{> stats}}
-		</div>
-	{{/if}}
+    {{> navigation}}
+    {{#if currentUser}}
+        {{> tournaments}}
+        <div id="content-container">
+            {{> results}}
+            {{> stats}}
+        </div>
+    {{/if}}
 </body>
 
 <template name="navigation">
-	<div id="navigation-container">
-		{{#if currentUser}}
-		<div id="add-button-container" class="nav">
-			<button type="button" id="addButton" name="addResult" class="btn btn-primary glyphicon glyphicon-plus {{#if noNew}}disabled{{/if}}"></button>
-		</div>
-		<div id="stats-button-container" class="nav">
-			<button type="button" id="statsButton" class="btn btn-info glyphicon glyphicon-signal {{#if isActive 'stats'}}active{{/if}}"></button>
-		</div>
-		<div id="undo-button-container" class="nav btn-group">
-			<button type="button" id="undoButton" class="btn btn-warning glyphicon glyphicon-share-alt {{#if noUndo}}disabled{{/if}}"></button>
-			<button type="button" id="undoButtonDropdown" class="btn btn-warning dropdown-toggle {{#if noUndo}}disabled{{/if}}" data-toggle="dropdown">
-				<span class="caret"></span>
-			</button>
-			<ul id="undo-actions-list" class="dropdown-menu" role="menu">
-				{{#each undoResults}}
-				<li class="{{actionType}}"><a>{{resultObject.date}}: {{resultObject.team1.nationality}} - {{resultObject.team2.nationality}}</a></li>
-				{{/each}}
-			</ul>
-		</div>
-		{{else}}
-		<h2 id="sign-in-label">Sign in please...</h2>
-		{{/if}}
-		<div id="login-button-container">
-			{{> loginButtons align="right"}}
-		</div>
-	</div>
+    <div id="navigation-container">
+        {{#if currentUser}}
+        <div id="add-button-container" class="nav">
+            <button type="button" id="addButton" name="addResult" class="btn btn-primary glyphicon glyphicon-plus {{#if noNew}}disabled{{/if}}"></button>
+        </div>
+        <div id="stats-button-container" class="nav">
+            <button type="button" id="statsButton" class="btn btn-info glyphicon glyphicon-signal {{#if isActive 'stats'}}active{{/if}}"></button>
+        </div>
+        <div id="undo-button-container" class="nav btn-group">
+            <button type="button" id="undoButton" class="btn btn-warning glyphicon glyphicon-share-alt {{#if noUndo}}disabled{{/if}}"></button>
+            <button type="button" id="undoButtonDropdown" class="btn btn-warning dropdown-toggle {{#if noUndo}}disabled{{/if}}" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul id="undo-actions-list" class="dropdown-menu" role="menu">
+                {{#each undoResults}}
+                <li class="{{actionType}}"><a>{{resultObject.date}}: {{resultObject.team1.nationality}} - {{resultObject.team2.nationality}}</a></li>
+                {{/each}}
+            </ul>
+        </div>
+        {{else}}
+        <h2 id="sign-in-label">Sign in please...</h2>
+        {{/if}}
+        <div id="login-button-container">
+            {{> loginButtons align="right"}}
+        </div>
+    </div>
 </template>
 
 <template name="tournaments">
-	<div id="tournaments-container">
-		<ul>
-			{{#each tournaments}}
-			{{> tournament}}
-			{{/each}}
-		</ul>
-	</div>
+    <div id="tournaments-container">
+        <ul>
+            {{#each tournaments}}
+            {{> tournament}}
+            {{/each}}
+        </ul>
+    </div>
 </template>
 
 <template name="tournament">
-	<li class="tournament {{#if selected}}selected{{/if}}">{{name}}</li>
+    <li class="tournament {{#if selected}}selected{{/if}}">{{name}}</li>
 </template>
 
 <template name="stats">
-	<div id="stats-container" class="{{#if show}}open{{/if}}">
-		<div id="team-stats-container" class="stat-container card table-responsive">
-			<h2 class="stats-title bg-primary">Team stats</h2>
-			<div class="stats-table-container">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th></th>
-							<th>P</th>
-							<th>+</th>
-							<th>-</th>
-							<th>W</th>
-							<th>L</th>
-							<th>T</th>
-						</tr>
-					</thead>
-					<tbody>
-						{{#each teamStats}}
-						<tr>
-							<td class="players">
-								<span class="player-names">{{player1}}, {{player2}}</span>
-								<span class="flag-bg flag-{{team.code}}">&nbsp;</span>
-							</td>
-							<td class="points">{{points}}</td>
-							<td class="goals-for">{{goalsFor}}</td>
-							<td class="goals-against">{{goalsAgainst}}</td>
-							<td class="wins">{{winCount}}</td>
-							<td class="loss">{{lossCount}}</td>
-							<td class="ties">{{tieCount}}</td>
-						</tr>
-						{{/each}}
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div id="player-stats-container" class="stat-container card table-responsive">
-			<h2 class="stats-title bg-info">Player stats</h2>
-			<div class="stats-table-container">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th></th>
-							<th>P</th>
-							<th>+</th>
-							<th>-</th>
-							<th>W</th>
-							<th>L</th>
-							<th>T</th>
-						</tr>
-					</thead>
-					<tbody>
-						{{#each playerStats}}
-						<tr>
-							<td>{{name}}</td>
-							<td class="points">{{points}}</td>
-							<td class="goals-for">{{goalsFor}} ({{goalsScored}})</td>
-							<td class="goals-against">{{goalsAgainst}} ({{goalsTaken}})</td>
-							<td class="wins">{{winCount}}</td>
-							<td class="loss">{{lossCount}}</td>
-							<td class="ties">{{tieCount}}</td>
-						</tr>
-						{{/each}}
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+    <div id="stats-container" class="{{#if show}}open{{/if}}">
+        <div id="team-stats-container" class="stat-container card table-responsive">
+            <h2 class="stats-title bg-primary">Team stats</h2>
+            <div class="stats-table-container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>P</th>
+                            <th>+</th>
+                            <th>-</th>
+                            <th>W</th>
+                            <th>L</th>
+                            <th>T</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each teamStats}}
+                        <tr>
+                            <td class="players">
+                                <span class="player-names">{{player1}}, {{player2}}</span>
+                                <span class="flag-bg flag-{{team.code}}">&nbsp;</span>
+                            </td>
+                            <td class="points">{{points}}</td>
+                            <td class="goals-for">{{goalsFor}}</td>
+                            <td class="goals-against">{{goalsAgainst}}</td>
+                            <td class="wins">{{winCount}}</td>
+                            <td class="loss">{{lossCount}}</td>
+                            <td class="ties">{{tieCount}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="player-stats-container" class="stat-container card table-responsive">
+            <h2 class="stats-title bg-info">Player stats</h2>
+            <div class="stats-table-container">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>P</th>
+                            <th>+</th>
+                            <th>-</th>
+                            <th>W</th>
+                            <th>L</th>
+                            <th>T</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each playerStats}}
+                        <tr>
+                            <td>{{name}}</td>
+                            <td class="points">{{points}}</td>
+                            <td class="goals-for">{{goalsFor}} ({{goalsScored}})</td>
+                            <td class="goals-against">{{goalsAgainst}} ({{goalsTaken}})</td>
+                            <td class="wins">{{winCount}}</td>
+                            <td class="loss">{{lossCount}}</td>
+                            <td class="ties">{{tieCount}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </template>
 
 <template name="results">
-	<div id="results-container" class="{{#if show}}open{{/if}}">
-		<ul>
-			{{#each results}}
-			{{> result}}
-			{{/each}}
-		</ul>
-	</div>
+    <div id="results-container" class="{{#if show}}open{{/if}}">
+        <ul>
+            {{#each results}}
+            {{> result}}
+            {{/each}}
+        </ul>
+    </div>
 </template>
 
 <template name="result">
-	<li class="result-container card {{#if ended}}ended{{/if}} {{#if locked}}locked{{/if}}">
-		<button type="button" class="lock-button glyphicon glyphicon-ban-circle clean {{#if locked}}active{{/if}}"></button>
-		<fieldset disabled={{locked}}>
-			<div class="date-score-container clearfix">
-				<div class="date-container fifty">
-					<div class="input-group date">
-						<input type="text" name="date" class="form-control" value="{{date}}" />
-						<span class="input-group-addon">
-							<span class="glyphicon glyphicon-calendar"></span>
-						</span>
-					</div>
-				</div>
-				<div class="scores-container fifty">
-					<div class="score-container fifty">
-						<input type="tel" name="score1" value="{{team1.score}}" class="form-control score flag-bg flag-{{team1.nationality}}" />
-					</div>
-					<div class="score-container fifty">
-						<input type="tel" name="score2" value="{{team2.score}}" class="form-control score flag-bg flag-{{team2.nationality}}" />
-					</div>
-				</div>
-				<button type="button" class="players-button">
-					<span aria-hidden="true"></span>
-				</button>
-			</div>
-			<div class="teams-container clearfix {{#unless hasStarted}}open{{/unless}}">
-				<div class="team-container fifty">
-					<div class="team-selector-container {{#if team1.won}}winner{{/if}}">
-						{{#each teams}}
-						<div class="team flag-{{code}} {{isSelected code ../team1.nationality}}" data-team-number="1" data-team-name="{{name}}"><span><i class="glyphicon glyphicon-flash"></i> {{player 1 players}} <i class="glyphicon glyphicon-record"></i> {{player 0 players}}</span></div>
-						{{/each}}
-					</div>
-				</div>
-				<div class="team-container fifty">
-					<div class="team-selector-container{{#if team2.won}} winner{{/if}}">
-						{{#each teams}}
-						<div class="team flag-{{code}} {{isSelected code ../team2.nationality}}" data-team-number="2" data-team-name="{{name}}"><span><i class="glyphicon glyphicon-flash"></i> {{player 1 players}} <i class="glyphicon glyphicon-record"></i> {{player 0 players}}</span></div>
-						{{/each}}
-					</div>
-				</div>
-			</div>
-			<button type="button" class="delete-button close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</fieldset>
-	</li>
+    <li class="result-container card {{#if ended}}ended{{/if}} {{#if locked}}locked{{/if}}">
+        <button type="button" class="lock-button glyphicon glyphicon-ban-circle clean {{#if locked}}active{{/if}}"></button>
+        <fieldset disabled={{locked}}>
+            <div class="date-score-container clearfix">
+                <div class="date-container fifty">
+                    <div class="input-group date">
+                        <input type="text" name="date" class="form-control" value="{{date}}" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="scores-container fifty">
+                    <div class="score-container fifty">
+                        <input type="tel" name="score1" value="{{team1.score}}" class="form-control score flag-bg flag-{{team1.nationality}}" />
+                    </div>
+                    <div class="score-container fifty">
+                        <input type="tel" name="score2" value="{{team2.score}}" class="form-control score flag-bg flag-{{team2.nationality}}" />
+                    </div>
+                </div>
+                <button type="button" class="players-button">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="teams-container clearfix {{#unless hasStarted}}open{{/unless}}">
+                <div class="team-container fifty">
+                    <div class="team-selector-container {{#if team1.won}}winner{{/if}}">
+                        {{#each teams}}
+                        <div class="team flag-{{code}} {{isSelected code ../team1.nationality}}" data-team-number="1" data-team-name="{{name}}"><span><i class="glyphicon glyphicon-flash"></i> {{player 1 players}} <i class="glyphicon glyphicon-record"></i> {{player 0 players}}</span></div>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="team-container fifty">
+                    <div class="team-selector-container{{#if team2.won}} winner{{/if}}">
+                        {{#each teams}}
+                        <div class="team flag-{{code}} {{isSelected code ../team2.nationality}}" data-team-number="2" data-team-name="{{name}}"><span><i class="glyphicon glyphicon-flash"></i> {{player 1 players}} <i class="glyphicon glyphicon-record"></i> {{player 0 players}}</span></div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="delete-button close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </fieldset>
+    </li>
 </template>

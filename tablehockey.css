@@ -1,106 +1,106 @@
 body {
-	background-color: rgb(229, 229, 229);
-	position: relative;
+    background-color: rgb(229, 229, 229);
+    position: relative;
 }
 
 ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	border: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	margin: 0;
+    margin: 0;
 }
 
 button,
 .btn, .btn:focus, .btn:active, .btn:hover,
 .btn.active, .btn.active:focus, .btn.active:active, .btn.active:hover {
-	outline: none;
+    outline: none;
 }
 
 button.clean {
-	-webkit-appearance: none;
-	padding: 0;
-	cursor: pointer;
-	background: transparent;
-	border: 0;
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
 }
 
 [disabled] {
-	pointer-events: none;
+    pointer-events: none;
 }
 
 .btn {
-	opacity: 1;
-	transition: all .2s linear;
+    opacity: 1;
+    transition: all .2s linear;
 }
 
 .btn.disabled {
-	opacity: .2;
+    opacity: .2;
 }
 
 .fifty {
-	float: left;
-	width: 50%;
+    float: left;
+    width: 50%;
 }
 
 .card {
-	border: 1px solid #d8d8d8;
-	border-bottom-width: 2px;
-	background-color: #fff;
-	margin-bottom: 20px;
+    border: 1px solid #d8d8d8;
+    border-bottom-width: 2px;
+    background-color: #fff;
+    margin-bottom: 20px;
 }
 
 /* NAVIGATION */
 
 #navigation-container {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 10;
-	background-color: #f5f5f5;
-	border-bottom: 1px solid #d8d8d8;
-	padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #d8d8d8;
+    padding: 10px;
 }
 
 #navigation-container .nav {
-	float: left;
-	margin: 0 10px;
+    float: left;
+    margin: 0 10px;
 }
 
 #sign-in-label {
-	float: left;
+    float: left;
 }
 
 /* UNDO BUTTON */
 
 #undoButton {
-	transform: scaleX(-1);
-	border-radius: 0 4px 4px 0;
+    transform: scaleX(-1);
+    border-radius: 0 4px 4px 0;
 }
 
 #undoButtonDropdown {
-	position: relative;
-	top: 1px;
+    position: relative;
+    top: 1px;
 }
 
 #undo-actions-list li {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 #undo-actions-list .insert {
-	background-color: rgba(92, 184, 92, 0.20);
+    background-color: rgba(92, 184, 92, 0.20);
 }
 
 #undo-actions-list .update {
-	background-color: rgba(240, 173, 78, 0.20);
+    background-color: rgba(240, 173, 78, 0.20);
 }
 
 #undo-actions-list .remove {
-	background-color: rgba(217, 83, 79, 0.20);
+    background-color: rgba(217, 83, 79, 0.20);
 }
 
 /* END OF UNDO BUTTON */
@@ -108,16 +108,16 @@ button.clean {
 /* LOGIN BUTTONS */
 
 #login-button-container {
-	float: right;
+    float: right;
 }
 
 #login-buttons .login-image {
-	top: 9px;
+    top: 9px;
 }
 
 #login-buttons .login-button {
-	font-size: 14px;
-	padding: 6px 12px;
+    font-size: 14px;
+    padding: 6px 12px;
 }
 
 /* END OF LOGIN BUTTONS */
@@ -127,26 +127,26 @@ button.clean {
 /* TOURNAMENTS */
 
 #tournaments-container {
-	padding-top: 56px;
-	margin-bottom: 20px;
-	background-color: #eee;
-	border-bottom: 1px solid #d8d8d8;
+    padding-top: 56px;
+    margin-bottom: 20px;
+    background-color: #eee;
+    border-bottom: 1px solid #d8d8d8;
 }
 
 #tournaments-container ul {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 .tournament {
-	float: left;
-	padding: 10px 20px;
-	cursor: pointer;
+    float: left;
+    padding: 10px 20px;
+    cursor: pointer;
 }
 
 .tournament.selected,
 .tournament:hover {
-	background-color: #5cb85c;
-	color: #fff;
+    background-color: #5cb85c;
+    color: #fff;
 }
 
 /* END OF TOURNAMENTS */
@@ -158,40 +158,40 @@ button.clean {
 /* STATS */
 
 #stats-container {
-	padding: 0 20px;
-	display: none;
+    padding: 0 20px;
+    display: none;
 }
 
 #stats-container.open {
-	display: block;
+    display: block;
 }
 
 #stats-container .stats-title {
-	padding: 10px 20px;
+    padding: 10px 20px;
 }
 
 #stats-container .stats-table-container {
-	padding: 20px;
+    padding: 20px;
 }
 
 #team-stats-container td, #team-stats-container th {
-	text-align: center;
+    text-align: center;
 }
 
 #team-stats-container .players {
-	position: relative;
-	padding-right: 60px;
-	text-align: left;
+    position: relative;
+    padding-right: 60px;
+    text-align: left;
 }
 
 #team-stats-container .flag-bg {
-	background-position: right center;
-	background-size: contain;
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 48px;
-	height: 100%;
+    background-position: right center;
+    background-size: contain;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 48px;
+    height: 100%;
 }
 
 /* END OF STATS */
@@ -199,123 +199,123 @@ button.clean {
 /* RESULTS */
 
 #results-container {
-	padding: 0 20px;
-	display: none;
+    padding: 0 20px;
+    display: none;
 }
 
 #results-container.open {
-	display: block;
+    display: block;
 }
 
 .result-container {
-	padding-top: 20px;
-	position: relative;
-	opacity: 1;
-	transition: opacity .2s linear;
+    padding-top: 20px;
+    position: relative;
+    opacity: 1;
+    transition: opacity .2s linear;
 }
 
 .result-container.ended {
-	opacity: .6;
+    opacity: .6;
 }
 
 .result-container.ended:hover:not(.locked) {
-	opacity: 1;
+    opacity: 1;
 }
 
 .delete-button {
-	position: absolute;
-	top: 3px;
-	right: 10px;
+    position: absolute;
+    top: 3px;
+    right: 10px;
 }
 
 .lock-button {
-	position: absolute;
-	opacity: .2;
-	top: 6px;
-	left: 10px;
+    position: absolute;
+    opacity: .2;
+    top: 6px;
+    left: 10px;
 }
 
 .lock-button:hover,
 .lock-button.active {
-	opacity: .5;
+    opacity: .5;
 }
 
 .players-button {
-	-webkit-appearance: none;
-	padding: 0;
-	cursor: pointer;
-	border: 0;
-	width: 15px;
-	height: 15px;
-	background: url('/img/icons/people.png') center center/contain no-repeat transparent;
-	opacity: .5;
-	position: absolute;
-	bottom: 8px;
-	right: 8px;
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    border: 0;
+    width: 15px;
+    height: 15px;
+    background: url('/img/icons/people.png') center center/contain no-repeat transparent;
+    opacity: .5;
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
 }
 
 .players-button:hover {
-	opacity: 1;
+    opacity: 1;
 }
 
 .date-score-container {
-	position: relative;
-	padding-bottom: 20px;
+    position: relative;
+    padding-bottom: 20px;
 }
 
 .date-container, .scores-container {
-	padding: 10px 20px;
+    padding: 10px 20px;
 }
 
 .score-container {
-	padding: 0 20px;
+    padding: 0 20px;
 }
 
 .score.flag-bg {
-	background-position: right center;
-	background-size: contain;
+    background-position: right center;
+    background-size: contain;
 }
 
 /* TEAMS */
 
 .teams-container {
-	display: none;
-	border-top: 1px solid #ccc;
-	background-color: #f5f5f5;
+    display: none;
+    border-top: 1px solid #ccc;
+    background-color: #f5f5f5;
 }
 
 .teams-container.open {
-	display: block;
+    display: block;
 }
 
 .team-selector-container {
-	padding: 10px 20px;
-	display: table;
-	width: 100%;
+    padding: 10px 20px;
+    display: table;
+    width: 100%;
 }
 
 .team-selector-container.winner {
-	background-color: #e6f6e4;
+    background-color: #e6f6e4;
 }
 
 .team {
-	display: table-cell;
-	min-width: 1em;
-	height: 30px;
-	background-size: contain;
-	background-position: center center;
-	background-repeat: no-repeat;
-	position: relative;
+    display: table-cell;
+    min-width: 1em;
+    height: 30px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: relative;
 }
 
 .team:before {
-	content: '';
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background: rgba(245, 245, 245, .9);
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(245, 245, 245, .9);
 }
 
 .team:after {
@@ -339,45 +339,45 @@ button.clean {
 }
 
 .winner .team:before {
-	background: rgba(230, 246, 228, .9);
+    background: rgba(230, 246, 228, .9);
 }
 
 .team.selected:before {
-	background: rgba(245,245,245,0);
+    background: rgba(245,245,245,0);
 }
 
 .team span {
-	opacity: 0;
-	position: absolute;
-	bottom: -55px;
-	left: -9999em;
-	z-index: 100;
-	background: #fff;
-	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .4);
-	border-radius: 3px;
-	white-space: nowrap;
-	padding: 2px 5px;
-	font-size: 12px;
-	transition: opacity .2s ease-out, bottom .2s ease-out;
+    opacity: 0;
+    position: absolute;
+    bottom: -55px;
+    left: -9999em;
+    z-index: 100;
+    background: #fff;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .4);
+    border-radius: 3px;
+    white-space: nowrap;
+    padding: 2px 5px;
+    font-size: 12px;
+    transition: opacity .2s ease-out, bottom .2s ease-out;
 }
 
 .team:hover span {
-	left: 50%;
-	transform: translateX(-50%);
-	opacity: 1;
-	bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+    bottom: -35px;
 }
 
 .team:nth-last-child(-n+3):hover span {
-	left: auto;
-	right: 0;
-	transform: none;
+    left: auto;
+    right: 0;
+    transform: none;
 }
 
 .team:nth-child(-n+3):hover span {
-	right: auto;
-	left: 0;
-	transform: none;
+    right: auto;
+    left: 0;
+    transform: none;
 }
 
 /* END OF TEAMS */
@@ -385,56 +385,56 @@ button.clean {
 /* FLAGS */
 
 .flag-bg {
-	background-repeat: no-repeat;
-	background-color: transparent;
+    background-repeat: no-repeat;
+    background-color: transparent;
 }
 
 .flag-ca {
-	background-image: url('/img/flags/ca.svg');
+    background-image: url('/img/flags/ca.svg');
 }
 
 .flag-cz {
-	background-image: url('/img/flags/cz.svg');
+    background-image: url('/img/flags/cz.svg');
 }
 
 .flag-dj {
-	background-image: url('/img/flags/dj.svg');
+    background-image: url('/img/flags/dj.svg');
 }
 
 .flag-gb {
-	background-image: url('/img/flags/gb.svg');
+    background-image: url('/img/flags/gb.svg');
 }
 
 .flag-hu {
-	background-image: url('/img/flags/hu.svg');
+    background-image: url('/img/flags/hu.svg');
 }
 
 .flag-sk {
-	background-image: url('/img/flags/sk.svg');
+    background-image: url('/img/flags/sk.svg');
 }
 
 .flag-ua {
-	background-image: url('/img/flags/ua.svg');
+    background-image: url('/img/flags/ua.svg');
 }
 
 .flag-fr {
-	background-image: url('/img/flags/fr.svg');
+    background-image: url('/img/flags/fr.svg');
 }
 
 .flag-de {
-	background-image: url('/img/flags/de.svg');
+    background-image: url('/img/flags/de.svg');
 }
 
 .flag-pl {
-	background-image: url('/img/flags/pl.svg');
+    background-image: url('/img/flags/pl.svg');
 }
 
 .flag-us {
-	background-image: url('/img/flags/us.svg');
+    background-image: url('/img/flags/us.svg');
 }
 
 .flag-ro {
-	background-image: url('/img/flags/ro.svg');
+    background-image: url('/img/flags/ro.svg');
 }
 
 /* END OF FLAGS */
@@ -444,31 +444,31 @@ button.clean {
 /* RESPONSIVE */
 
 @media screen and (max-width: 750px) {
-	#tournaments-container {
-		margin-bottom: 0;
-		border: 0;
-	}
+    #tournaments-container {
+        margin-bottom: 0;
+        border: 0;
+    }
 
-	.card {
-		margin-bottom: 0;
-		border-width: 1px 1px 0 1px;
-	}
+    .card {
+        margin-bottom: 0;
+        border-width: 1px 1px 0 1px;
+    }
 
-	#results-container, #stats-container {
-		padding: 0;
-	}
+    #results-container, #stats-container {
+        padding: 0;
+    }
 
-	.date-container, .scores-container {
-		width: 100%;
-	}
+    .date-container, .scores-container {
+        width: 100%;
+    }
 
-	.team-container {
-		width: 100%;
-	}
+    .team-container {
+        width: 100%;
+    }
 
-	#team-stats-container .flag-bg {
-		left: 0;
-	}
+    #team-stats-container .flag-bg {
+        left: 0;
+    }
 
     #team-stats-container .player-names {
         display: none;
@@ -476,9 +476,9 @@ button.clean {
 }
 
 @media screen and (max-width: 480px) {
-	#login-buttons .login-display-name {
+    #login-buttons .login-display-name {
         display: none;
-	}
+    }
 }
 
 /* END OF RESPONSIVE */
