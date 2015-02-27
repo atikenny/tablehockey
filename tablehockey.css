@@ -278,7 +278,7 @@ button,
 	display: table-cell;
 	min-width: 1em;
 	height: 30px;
-	background-size: auto 100%;
+	background-size: contain;
 	background-position: center center;
 	background-repeat: no-repeat;
 	position: relative;
@@ -294,6 +294,26 @@ button,
 	background: rgba(245, 245, 245, .9);
 }
 
+.team:after {
+    opacity: 0;
+    content: '';
+    position: absolute;
+    bottom: -34px;
+    left: -9999em;
+    width: 0;
+    height: 0;
+    margin: -12px 0 0 -6px;
+    border: 6px solid transparent;
+    border-bottom-color: #fff;
+    transition: opacity .2s ease-out, bottom .2s ease-out;
+}
+
+.team:hover:after {
+    left: 50%;
+    opacity: 1;
+    bottom: -14px;
+}
+
 .winner .team:before {
 	background: rgba(230, 246, 228, .9);
 }
@@ -305,7 +325,7 @@ button,
 .team span {
 	opacity: 0;
 	position: absolute;
-	bottom: -60px;
+	bottom: -55px;
 	left: -9999em;
 	z-index: 100;
 	background: #fff;
@@ -321,41 +341,19 @@ button,
 	left: 50%;
 	transform: translateX(-50%);
 	opacity: 1;
-	bottom: -40px;
+	bottom: -35px;
 }
 
-.team:last-child:hover span {
+.team:nth-last-child(-n+3):hover span {
 	left: auto;
 	right: 0;
 	transform: none;
 }
 
-.team:first-child:hover span {
+.team:nth-child(-n+3):hover span {
 	right: auto;
 	left: 0;
 	transform: none;
-}
-
-.team span:before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 50%;
-	width: 0;
-	height: 0;
-	margin: -12px 0 0 -6px;
-	border: 6px solid transparent;
-	border-bottom-color: #fff;
-}
-
-.team:last-child span:before {
-	left: auto;
-	right: 10px;
-}
-
-.team:first-child span:before {
-	right: auto;
-	left: 20px;
 }
 
 /* END OF TEAMS */
@@ -451,6 +449,12 @@ button,
     #team-stats-container .player-names {
         display: none;
     }
+}
+
+@media screen and (max-width: 480px) {
+	.login-display-name {
+        display: none;
+	}
 }
 
 /* END OF RESPONSIVE */
