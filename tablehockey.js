@@ -730,6 +730,7 @@ if (Meteor.isClient) {
         Results.remove(resultObject._id);
     }
 
+    Meteor.subscribe('userData');
     Meteor.subscribe('players');
     Meteor.subscribe('teams');
     Meteor.subscribe('results');
@@ -787,7 +788,7 @@ if (Meteor.isClient) {
         }
     });
 
-    Template.result.rendered = function() {
+    Template.result.rendered = function () {
         $('.date').datepicker({
             format: 'yyyy-mm-dd',
             weekStart: 1,
@@ -857,17 +858,24 @@ if (Meteor.isClient) {
     });
 
     Template.navigation.helpers({
-        isActive: function(content) {
+        isActive: function (content) {
             return Session.get('shownContent') === content;
         },
-        noUndo: function() {
+        noUndo: function () {
             return Session.get('undoResults').length === 0;
         },
-        noNew: function() {
+        noNew: function () {
             return Session.get('shownContent') != 'results';
         },
-        undoResults: function() {
+        undoResults: function () {
             return Session.get('undoResults').slice(-10).reverse();
+        },
+        profilePicturePath: function () {
+            var userData = Meteor.user(),
+                googleData = userData && userData.services.google,
+                profilePicturePath = googleData && googleData.picture;
+            
+            return profilePicturePath;
         }
     });
 
@@ -1062,7 +1070,7 @@ if (Meteor.isServer) {
         });
     }
 
-    Accounts.validateLoginAttempt(function(info) {
+    Accounts.validateLoginAttempt(function (info) {
         var allowedEmails = [
                 'atikenny@gmail.com',
                 'mucsi96@gmail.com',
@@ -1073,31 +1081,37 @@ if (Meteor.isServer) {
         return info.user && info.user.services && allowedEmails.indexOf(info.user.services.google.email) !== -1;
     });
 
-    Meteor.startup(function() {
+    Meteor.startup(function () {
         initPlayers();
         initTeams();
         initTournaments();
     });
 
-    Meteor.publish('results', function() {
+    Meteor.publish('userData', function () {
+        if (this.userId) {
+            return Meteor.users.find({_id: this.userId});
+        }
+    });
+
+    Meteor.publish('results', function () {
         if (this.userId) {
             return Results.find();
         }
     });
 
-    Meteor.publish('players', function() {
+    Meteor.publish('players', function () {
         if (this.userId) {
             return Players.find();
         }
     });
 
-    Meteor.publish('teams', function() {
+    Meteor.publish('teams', function () {
         if (this.userId) {
             return Teams.find();
         }
     });
 
-    Meteor.publish('tournaments', function() {
+    Meteor.publish('tournaments', function () {
         if (this.userId) {
             return Tournaments.find();
         }

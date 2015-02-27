@@ -20,23 +20,26 @@
 <template name="navigation">
     <div id="navigation-container">
         {{#if currentUser}}
-        <div id="add-button-container" class="nav">
-            <button type="button" id="addButton" name="addResult" class="btn btn-primary glyphicon glyphicon-plus {{#if noNew}}disabled{{/if}}"></button>
-        </div>
-        <div id="stats-button-container" class="nav">
-            <button type="button" id="statsButton" class="btn btn-info glyphicon glyphicon-signal {{#if isActive 'stats'}}active{{/if}}"></button>
-        </div>
-        <div id="undo-button-container" class="nav btn-group">
-            <button type="button" id="undoButton" class="btn btn-warning glyphicon glyphicon-share-alt {{#if noUndo}}disabled{{/if}}"></button>
-            <button type="button" id="undoButtonDropdown" class="btn btn-warning dropdown-toggle {{#if noUndo}}disabled{{/if}}" data-toggle="dropdown">
-                <span class="caret"></span>
-            </button>
-            <ul id="undo-actions-list" class="dropdown-menu" role="menu">
-                {{#each undoResults}}
-                <li class="{{actionType}}"><a>{{resultObject.date}}: {{resultObject.team1.nationality}} - {{resultObject.team2.nationality}}</a></li>
-                {{/each}}
-            </ul>
-        </div>
+            <div id="add-button-container" class="nav">
+                <button type="button" id="addButton" name="addResult" class="btn btn-primary glyphicon glyphicon-plus {{#if noNew}}disabled{{/if}}"></button>
+            </div>
+            <div id="stats-button-container" class="nav">
+                <button type="button" id="statsButton" class="btn btn-info glyphicon glyphicon-signal {{#if isActive 'stats'}}active{{/if}}"></button>
+            </div>
+            <div id="undo-button-container" class="nav btn-group">
+                <button type="button" id="undoButton" class="btn btn-warning glyphicon glyphicon-share-alt {{#if noUndo}}disabled{{/if}}"></button>
+                <button type="button" id="undoButtonDropdown" class="btn btn-warning dropdown-toggle {{#if noUndo}}disabled{{/if}}" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul id="undo-actions-list" class="dropdown-menu" role="menu">
+                    {{#each undoResults}}
+                        <li class="{{actionType}}"><a>{{resultObject.date}}: {{resultObject.team1.nationality}} - {{resultObject.team2.nationality}}</a></li>
+                    {{/each}}
+                </ul>
+            </div>
+            <div id="profile-picture">
+                <img src="{{profilePicturePath}}" />
+            </div>
         {{else}}
         <h2 id="sign-in-label">Sign in please...</h2>
         {{/if}}
