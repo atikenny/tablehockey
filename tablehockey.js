@@ -211,6 +211,52 @@ if (Meteor.isClient) {
     return goalsForTeam1 + goalsForTeam2;
   }
 
+  function getPlayerGoalsScored(playerName) {
+    return Results
+      .find({
+        $and: [
+          { ended: true },
+          { tournament: Session.get('activeTournament') },
+          {
+            $or: [
+              { "team1.player2": playerName },
+              { "team2.player2": playerName }
+            ]
+          }
+        ]
+      }).fetch()
+      .map(function (result) { 
+        return result.team1.player2 === playerName ? result.team1.score : result.team2.score;
+      })
+      .reduce(function (a, b) {
+          return a + b;
+        }, 0
+      );
+  }
+
+  function getPlayerGoalsTaken(playerName) {
+    return Results
+      .find({
+        $and: [
+          { ended: true },
+          { tournament: Session.get('activeTournament') },
+          {
+            $or: [
+              { "team1.player1": playerName },
+              { "team2.player1": playerName }
+            ]
+          }
+        ]
+      }).fetch()
+      .map(function (result) { 
+        return result.team1.player1 === playerName ? result.team2.score : result.team1.score;
+      })
+      .reduce(function (a, b) {
+          return a + b;
+        }, 0
+      );
+  }
+
   function getPlayerStats() {
     var playerStats = [],
         players = Players.find().fetch();
@@ -225,6 +271,8 @@ if (Meteor.isClient) {
         points:         winCount * 3 + tieCount,
         goalsFor:       getPlayerGoalsFor(player.name),
         goalsAgainst:   getPlayerGoalsAgainst(player.name),
+        goalsScored:    getPlayerGoalsScored(player.name),
+        goalsTaken:     getPlayerGoalsTaken(player.name),
         winCount:       winCount,
         lossCount:      lossCount,
         tieCount:       tieCount
