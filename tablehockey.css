@@ -503,11 +503,6 @@ button.clean {
 }
 
 @media screen and (max-width: 480px) {
-    .form-control {
-        height: 40px;
-        line-height: 1.5;
-    }
-
     #navigation-container {
         padding: 5px 0;
     }
