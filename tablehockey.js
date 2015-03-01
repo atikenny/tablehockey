@@ -806,45 +806,60 @@ if (Meteor.isClient) {
         "click .players-button": function(event, template) {
             template.$('.teams-container').toggleClass('open');
         },
-        "change .result-container, click .teams-container": function(event, template) {
-            var score1 = +template.$('[name="score1"]').val(),
-                score2 = +template.$('[name="score2"]').val(),
-                team1Name = template.$('.team[data-team-number="1"].selected').data('team-name'),
-                team2Name = template.$('.team[data-team-number="2"].selected').data('team-name'),
-                team1 = Teams.findOne({
-                    name: team1Name
-                }),
-                team2 = Teams.findOne({
-                    name: team2Name
-                }),
-                ended = score1 !== 0 || score2 !== 0;
+        "change [name='score1']": function(event) {
+            var team1Score = +($(event.currentTarget).val()),
+                team1Won = team1Score > this.team2.score,
+                team2Won = team1Score < this.team2.score,
+                ended = team1Score || this.team2.score;
 
             addToResultsUndo('update', this);
-
             Results.update(this._id, {
                 $set: {
-                    date: template.$('[name="date"]').val(),
-                    team1: {
-                        player1: team1.players[0],
-                        player2: team1.players[1],
-                        score: score1,
-                        won: score1 > score2,
-                        nationality: team1.code
-                    },
-                    team2: {
-                        player1: team2.players[0],
-                        player2: team2.players[1],
-                        score: score2,
-                        won: score1 < score2,
-                        nationality: team2.code
-                    },
-                    ended: ended
+                    "team1.score": team1Score,
+                    "team1.won": team1Won,
+                    "team2.won": team2Won,
+                    ended: !!ended
                 }
             });
         },
-        "click .team": function(event, template) {
-            var teamNumber = event.target.dataset.teamNumber;
+        "change [name='score2']": function(event) {
+            var team2Score = +($(event.currentTarget).val()),
+                team1Won = team2Score < this.team1.score,
+                team2Won = team2Score > this.team1.score,
+                ended = team2Score || this.team1.score;
 
+            addToResultsUndo('update', this);
+            Results.update(this._id, {
+                $set: {
+                    "team2.score": team2Score,
+                    "team1.won": team1Won,
+                    "team2.won": team2Won,
+                    ended: !!ended
+                }
+            });
+        },
+        "change [name='date']": function(event) {
+            var date = $(event.currentTarget).val();
+
+            addToResultsUndo('update', this);
+            Results.update(this._id, {$set: {"date": date}});
+        },
+        "click .team": function(event, template) {
+            var teamName = event.target.dataset.teamName,
+                teamNumber = event.target.dataset.teamNumber,
+                teamObjectSelector = 'team' + teamNumber,
+                team = Teams.findOne({ name: teamName }),
+                newTeam = {};
+
+            addToResultsUndo('update', template.data);
+
+            newTeam[teamObjectSelector + '.player1'] = team.players[0];
+            newTeam[teamObjectSelector + '.player2'] = team.players[1];
+            newTeam[teamObjectSelector + '.nationality'] = team.code;
+
+            Results.update(template.data._id, { $set: newTeam });
+
+            //toggle selected class
             template.$('[data-team-number="' + teamNumber + '"]').removeClass('selected');
             event.target.classList.add('selected');
         },
@@ -872,7 +887,7 @@ if (Meteor.isClient) {
         },
         profilePicturePath: function () {
             var userData = Meteor.user(),
-                googleData = userData && userData.services.google,
+                googleData = userData && userData.services && userData.services.google,
                 profilePicturePath = googleData && googleData.picture;
             
             return profilePicturePath;
