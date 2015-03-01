@@ -841,8 +841,10 @@ if (Meteor.isClient) {
         "change [name='date']": function(event) {
             var date = $(event.currentTarget).val();
 
-            addToResultsUndo('update', this);
-            Results.update(this._id, {$set: {"date": date}});
+            if (date !== this.date) {
+                addToResultsUndo('update', this);
+                Results.update(this._id, {$set: {"date": date}});
+            }
         },
         "click .team": function(event, template) {
             var teamName = event.target.dataset.teamName,
