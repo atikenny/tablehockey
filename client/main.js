@@ -358,7 +358,8 @@ function getPlayerStats() {
             goalsTaken: getPlayerGoalsTaken(player.name),
             winCount: winCount,
             lossCount: lossCount,
-            tieCount: tieCount
+            tieCount: tieCount,
+            gamesCount: winCount + lossCount + tieCount
         });
     });
 
@@ -604,7 +605,8 @@ function getTeamStats() {
             goalsAgainst: getTeamGoalsAgainst(team),
             winCount: winCount,
             lossCount: lossCount,
-            tieCount: tieCount
+            tieCount: tieCount,
+            gamesCount: winCount + lossCount + tieCount
         });
     });
 

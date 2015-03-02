@@ -446,6 +446,10 @@ button.clean {
     background-image: url('/img/flags/ro.svg');
 }
 
+.flag-sl {
+    background-image: url('/img/flags/sl.svg');
+}
+
 /* END OF FLAGS */
 
 /* END OF RESULTS */

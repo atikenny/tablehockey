@@ -78,13 +78,14 @@
                             <th>W</th>
                             <th>L</th>
                             <th>T</th>
+                            <th>G</th>
                         </tr>
                     </thead>
                     <tbody>
                         {{#each teamStats}}
                         <tr>
                             <td class="players">
-                                <span class="player-names">{{player1}}, {{player2}}</span>
+                                <span class="player-names">{{player1}}{{#if player2}}, {{player2}}{{/if}}</span>
                                 <span class="flag-bg flag-{{team.code}}">&nbsp;</span>
                             </td>
                             <td class="points">{{points}}</td>
@@ -93,6 +94,7 @@
                             <td class="wins">{{winCount}}</td>
                             <td class="loss">{{lossCount}}</td>
                             <td class="ties">{{tieCount}}</td>
+                            <td class="games">{{gamesCount}}</td>
                         </tr>
                         {{/each}}
                     </tbody>
@@ -112,6 +114,7 @@
                             <th>W</th>
                             <th>L</th>
                             <th>T</th>
+                            <th>G</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -124,6 +127,7 @@
                             <td class="wins">{{winCount}}</td>
                             <td class="loss">{{lossCount}}</td>
                             <td class="ties">{{tieCount}}</td>
+                            <td class="ties">{{gamesCount}}</td>
                         </tr>
                         {{/each}}
                     </tbody>
