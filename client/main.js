@@ -1,5 +1,4 @@
-var defaultContent = 'results',
-    j = 0;
+var defaultContent = 'results';
 
 Session.setDefault('shownContent', defaultContent);
 Session.setDefault('activeTournament', 'round two');
@@ -12,13 +11,12 @@ function getNewResult() {
             }
         }).fetch(),
         now = new Date(),
+        year = now.getFullYear(),
+        month = ('0' + parseInt(now.getMonth() + 1)).slice(-2),
+        day = ('0' + now.getDate()).slice(-2),
         date;
 
-    date = now.getFullYear() +
-        '-' +
-        ('0' + +(now.getMonth() + 1)).slice(-2) +
-        '-' +
-        ('0' + now.getDate()).slice(-2);
+    date = year + '-' + month + '-' + day;
 
     return {
         date: date,
@@ -196,7 +194,7 @@ function getPlayerGoalsAgainst(playerName) {
             ]
         }).fetch()
         .map(function(result) {
-            return result.team2.score
+            return result.team2.score;
         })
         .reduce(function(a, b) {
             return a + b;
@@ -219,7 +217,7 @@ function getPlayerGoalsAgainst(playerName) {
             ]
         }).fetch()
         .map(function(result) {
-            return result.team1.score
+            return result.team1.score;
         })
         .reduce(function(a, b) {
             return a + b;
@@ -250,7 +248,7 @@ function getPlayerGoalsFor(playerName) {
             ]
         }).fetch()
         .map(function(result) {
-            return result.team1.score
+            return result.team1.score;
         })
         .reduce(function(a, b) {
             return a + b;
@@ -273,7 +271,7 @@ function getPlayerGoalsFor(playerName) {
             ]
         }).fetch()
         .map(function(result) {
-            return result.team2.score
+            return result.team2.score;
         })
         .reduce(function(a, b) {
             return a + b;
@@ -505,7 +503,7 @@ function getTeamGoalsAgainst(team) {
             ]
         }).fetch()
         .map(function(result) {
-            return result.team2.score
+            return result.team2.score;
         })
         .reduce(function(a, b) {
             return a + b;
@@ -526,7 +524,7 @@ function getTeamGoalsAgainst(team) {
             ]
         }).fetch()
         .map(function(result) {
-            return result.team1.score
+            return result.team1.score;
         })
         .reduce(function(a, b) {
             return a + b;
@@ -554,7 +552,7 @@ function getTeamGoalsFor(team) {
             ]
         }).fetch()
         .map(function(result) {
-            return result.team1.score
+            return result.team1.score;
         })
         .reduce(function(a, b) {
             return a + b;
@@ -575,7 +573,7 @@ function getTeamGoalsFor(team) {
             ]
         }).fetch()
         .map(function(result) {
-            return result.team2.score
+            return result.team2.score;
         })
         .reduce(function(a, b) {
             return a + b;
