@@ -1,0 +1,9 @@
+<template name="results">
+    <div id="results-container" class="page {{#if show}}open{{/if}}">
+        <ul>
+            {{#each results}}
+            {{> result}}
+            {{/each}}
+        </ul>
+    </div>
+</template>

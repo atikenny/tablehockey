@@ -1,0 +1,59 @@
+<template name="result">
+    <li class="result-container card {{#if ended}}ended{{/if}} {{#if locked}}locked{{/if}}">
+        <button type="button" class="lock-button glyphicon glyphicon-ban-circle clean {{#if locked}}active{{/if}}"></button>
+        <fieldset disabled={{locked}}>
+            <div class="date-score-container clearfix">
+                <div class="date-container fifty">
+                    <div class="input-group date">
+                        <input type="text" name="date" class="form-control" value="{{date}}" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="scores-container fifty">
+                    <div class="score-container fifty input-group">
+                        <input type="tel" name="score1" value="{{team1.score}}" class="form-control score" />
+                        <div class="flag-container input-group-addon">
+                            <img class="team-flag" src="/img/flags/{{team1.nationality}}.svg" />
+                        </div>
+                    </div>
+                    <div class="score-container fifty input-group">
+                        <input type="tel" name="score2" value="{{team2.score}}" class="form-control score" />
+                        <div class="flag-container input-group-addon">
+                            <img class="team-flag" src="/img/flags/{{team2.nationality}}.svg" />
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="players-button">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="teams-container clearfix {{#unless hasStarted}}open{{/unless}}">
+                <div class="team-container fifty">
+                    <div class="team-selector-container {{#if team1.won}}winner{{/if}}">
+                        {{#each teams}}
+                        <div class="team {{isSelected code ../team1.nationality}}" data-team-number="1" data-team-name="{{name}}">
+                            <img class="team-flag" src="/img/flags/{{code}}.svg" />
+                            <span><i class="glyphicon glyphicon-flash"></i> {{player 1 players}} <i class="glyphicon glyphicon-record"></i> {{player 0 players}}</span>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="team-container fifty">
+                    <div class="team-selector-container{{#if team2.won}} winner{{/if}}">
+                        {{#each teams}}
+                        <div class="team {{isSelected code ../team2.nationality}}" data-team-number="2" data-team-name="{{name}}">
+                            <img class="team-flag" src="/img/flags/{{code}}.svg" />
+                            <span><i class="glyphicon glyphicon-flash"></i> {{player 1 players}} <i class="glyphicon glyphicon-record"></i> {{player 0 players}}</span>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="delete-button close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </fieldset>
+    </li>
+</template>

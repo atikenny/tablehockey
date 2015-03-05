@@ -1,0 +1,13 @@
+.result-container .team-flag {
+    width: 100%;
+}
+
+.score-container .flag-container {
+    width: 44px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.team-selector-container .team {
+    cursor: pointer;
+}
