@@ -1,0 +1,43 @@
+#drawer-container {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: -100%;
+	background-color: #fff;
+	z-index: 100;
+	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+	transition: left .2s linear;
+}
+
+#drawer-container.open {
+	left: 0;
+}
+
+#drawer-container .title {
+	border-bottom: 1px solid #ccc;
+	padding: 11px 20px;
+}
+
+#drawer-list li {
+	padding: 10px 20px;
+	transition: background-color .2s linear;
+	cursor: pointer;
+}
+
+#drawer-list li:hover {
+	background-color: #d8d8d8;
+}
+
+#drawer-modal {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 90;
+	display: none;
+}
+
+#drawer-modal.show {
+	display: block;
+}

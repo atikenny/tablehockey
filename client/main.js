@@ -730,12 +730,6 @@ Meteor.subscribe('teams');
 Meteor.subscribe('results');
 Meteor.subscribe('tournaments');
 
-Template.tournaments.helpers({
-    tournaments: function() {
-        return Tournaments.find();
-    }
-});
-
 Template.tournament.helpers({
     selected: function() {
         return this.name === Session.get('activeTournament');
