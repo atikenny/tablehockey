@@ -75,8 +75,8 @@
                         {{#each teamStats}}
                         <tr>
                             <td class="players-and-team-flag">
-                                <span class="player-names">{{player1}}{{#if player2}}, {{player2}}{{/if}}</span>
-                                <span class="flag-bg flag-{{team.code}}">&nbsp;</span>
+                                <div class="player-names">{{player1}}{{#if player2}}, {{player2}}{{/if}}</div>
+                                <img class="flag-bg" src="/img/flags/{{team.code}}.svg" />
                             </td>
                             <td class="points">{{points}}</td>
                             <td class="goals-for">{{goalsFor}}</td>

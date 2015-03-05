@@ -2,8 +2,8 @@
     <div id="tournaments-config-container">
         {{#each teams}}
         <div class="players-and-team-flag">
-        	<span class="player-names">{{players}}</span>
-            <span class="flag-bg flag-{{code}}">&nbsp;</span>
+            <img class="flag-bg" src="/img/flags/{{code}}.svg" />
+        	<div class="player-names">{{players}}</div>
         </div>
         {{/each}}
     </div>

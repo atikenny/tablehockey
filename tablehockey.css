@@ -204,18 +204,13 @@ button.clean {
 
 .players-and-team-flag {
     position: relative;
-    padding-right: 60px;
-    text-align: left;
 }
 
 .players-and-team-flag .flag-bg {
-    background-position: right center;
-    background-size: contain;
     position: absolute;
     top: 0;
     right: 0;
     width: 48px;
-    height: 100%;
 }
 
 /* END OF STATS */
