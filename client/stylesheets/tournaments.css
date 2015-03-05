@@ -1,3 +1,28 @@
+/* TOURNAMENTS */
+
+#tournaments-container {
+    padding-top: 56px;
+    margin-bottom: 20px;
+    background-color: #eee;
+    border-bottom: 1px solid #d8d8d8;
+}
+
+#tournaments-container ul {
+    overflow: hidden;
+}
+
+.tournament {
+    float: left;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.tournament.selected,
+.tournament:hover {
+    background-color: #5cb85c;
+    color: #fff;
+}
+
 #tournaments-config-container {
     display: none;
     border-top: 1px solid #d8d8d8;
@@ -18,3 +43,5 @@
     left: 0;
     right: auto;
 }
+
+/* END OF TOURNAMENTS */
