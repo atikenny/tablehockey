@@ -18,7 +18,7 @@
     <div id="navigation-container">
         {{#if currentUser}}
             <div id="drawer-button-container" class="nav">
-                <button type="button" id="drawerButton" class="btn btn-default glyphicon glyphicon-menu-hamburger {{#if noNew}}disabled{{/if}}"></button>
+                <button type="button" id="drawerButton" class="btn btn-default glyphicon glyphicon-menu-hamburger"></button>
             </div>
             <div id="add-button-container" class="nav">
                 <button type="button" id="addButton" class="btn btn-primary glyphicon glyphicon-plus {{#if noNew}}disabled{{/if}}"></button>
@@ -74,7 +74,7 @@
                     <tbody>
                         {{#each teamStats}}
                         <tr>
-                            <td class="players">
+                            <td class="players-and-team-flag">
                                 <span class="player-names">{{player1}}{{#if player2}}, {{player2}}{{/if}}</span>
                                 <span class="flag-bg flag-{{team.code}}">&nbsp;</span>
                             </td>

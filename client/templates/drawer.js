@@ -11,6 +11,6 @@ Template.drawer.events({
         toggleDrawer();
     },
     'click #tournamentsLink': function () {
-        Session.set('shownContent', 'tournaments');
+        $('#tournaments-container').toggleClass('open');
     }
 });

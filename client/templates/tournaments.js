@@ -3,6 +3,6 @@ Template.tournaments.helpers({
         return Tournaments.find();
     },
     show: function () {
-    	return Session.get('shownContent', 'tournaments');
+    	return Session.get('shownContent') === 'tournaments';
     }
 });

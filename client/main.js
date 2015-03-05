@@ -627,14 +627,6 @@ function getTeamCodesByPlayer(playerName) {
     });
 }
 
-function getActiveTournamentTeams() {
-    var tournaments = Tournaments.findOne({
-        name: Session.get('activeTournament')
-    });
-
-    return tournaments && tournaments.teams || [];
-}
-
 function addToResultsUndo(actionType, resultObject) {
     var undoResults = Session.get('undoResults');
 

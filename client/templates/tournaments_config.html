@@ -1,7 +1,10 @@
 <template name="tournaments_config">
     <div id="tournaments-config-container">
         {{#each teams}}
-        <div class="team-container">{{name}}</div>
+        <div class="players-and-team-flag">
+        	<span class="player-names">{{players}}</span>
+            <span class="flag-bg flag-{{code}}">&nbsp;</span>
+        </div>
         {{/each}}
     </div>
 </template>

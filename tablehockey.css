@@ -192,17 +192,23 @@ button.clean {
     padding: 20px;
 }
 
-#team-stats-container td, #team-stats-container th {
+.stats-table-container td,
+.stats-table-container th {
     text-align: center;
 }
 
-#team-stats-container .players {
+.stats-table-container td:first-child,
+.stats-table-container th:first-child {
+    text-align: left;
+}
+
+.players-and-team-flag {
     position: relative;
     padding-right: 60px;
     text-align: left;
 }
 
-#team-stats-container .flag-bg {
+.players-and-team-flag .flag-bg {
     background-position: right center;
     background-size: contain;
     position: absolute;
@@ -390,67 +396,6 @@ button.clean {
 }
 
 /* END OF TEAMS */
-
-/* FLAGS */
-
-.flag-bg {
-    background-repeat: no-repeat;
-    background-color: transparent;
-}
-
-.flag-ca {
-    background-image: url('/img/flags/ca.svg');
-}
-
-.flag-cz {
-    background-image: url('/img/flags/cz.svg');
-}
-
-.flag-dj {
-    background-image: url('/img/flags/dj.svg');
-}
-
-.flag-gb {
-    background-image: url('/img/flags/gb.svg');
-}
-
-.flag-hu {
-    background-image: url('/img/flags/hu.svg');
-}
-
-.flag-sk {
-    background-image: url('/img/flags/sk.svg');
-}
-
-.flag-ua {
-    background-image: url('/img/flags/ua.svg');
-}
-
-.flag-fr {
-    background-image: url('/img/flags/fr.svg');
-}
-
-.flag-de {
-    background-image: url('/img/flags/de.svg');
-}
-
-.flag-pl {
-    background-image: url('/img/flags/pl.svg');
-}
-
-.flag-us {
-    background-image: url('/img/flags/us.svg');
-}
-
-.flag-ro {
-    background-image: url('/img/flags/ro.svg');
-}
-
-.flag-sl {
-    background-image: url('/img/flags/sl.svg');
-}
-
-/* END OF FLAGS */
 
 /* END OF RESULTS */
 
