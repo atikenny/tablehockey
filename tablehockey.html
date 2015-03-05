@@ -9,19 +9,19 @@
 <body>
     {{> navigation}}
     {{#if currentUser}}
-        {{> tournaments}}
-        <div id="content-container">
-            {{> results}}
-            {{> stats}}
-        </div>
+        {{> drawer}}
+        {{> content}}
     {{/if}}
 </body>
 
 <template name="navigation">
     <div id="navigation-container">
         {{#if currentUser}}
+            <div id="drawer-button-container" class="nav">
+                <button type="button" id="drawerButton" class="btn btn-default glyphicon glyphicon-menu-hamburger {{#if noNew}}disabled{{/if}}"></button>
+            </div>
             <div id="add-button-container" class="nav">
-                <button type="button" id="addButton" name="addResult" class="btn btn-primary glyphicon glyphicon-plus {{#if noNew}}disabled{{/if}}"></button>
+                <button type="button" id="addButton" class="btn btn-primary glyphicon glyphicon-plus {{#if noNew}}disabled{{/if}}"></button>
             </div>
             <div id="stats-button-container" class="nav">
                 <button type="button" id="statsButton" class="btn btn-info glyphicon glyphicon-signal {{#if isActive 'stats'}}active{{/if}}"></button>
@@ -46,16 +46,6 @@
         <div id="login-button-container">
             {{> loginButtons align="right"}}
         </div>
-    </div>
-</template>
-
-<template name="tournaments">
-    <div id="tournaments-container">
-        <ul>
-            {{#each tournaments}}
-            {{> tournament}}
-            {{/each}}
-        </ul>
     </div>
 </template>
 
