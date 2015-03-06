@@ -1,0 +1,15 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#337ab7">
+    <link rel="manifest" href="/json/web-app-config.json">
+    <link rel="icon" sizes="192x192" href="/img/icons/favicon.png">
+    <title>tablehockey.com</title>
+</head>
+<body>
+    {{> navigation}}
+    {{#if currentUser}}
+        {{> drawer}}
+        {{> content}}
+    {{/if}}
+</body>

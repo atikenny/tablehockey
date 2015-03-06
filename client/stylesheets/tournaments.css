@@ -45,3 +45,20 @@
 }
 
 /* END OF TOURNAMENTS */
+
+@media screen and (max-width: 750px) {
+    #tournaments-container {
+        margin-bottom: 0;
+        border: 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #tournaments-container {
+        padding-top: 46px;
+    }
+
+    .tournament {
+        padding: 10px;
+    }
+}

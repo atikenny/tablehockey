@@ -1,0 +1,109 @@
+/* NAVIGATION */
+
+#navigation-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #d8d8d8;
+    padding: 10px;
+    min-width: 380px;
+}
+
+#navigation-container .nav {
+    float: left;
+    margin: 0 10px;
+}
+
+#sign-in-label {
+    float: left;
+}
+
+/* UNDO BUTTON */
+
+#undoButton {
+    transform: scaleX(-1);
+    border-radius: 0 4px 4px 0;
+}
+
+#undoButtonDropdown {
+    position: relative;
+    top: 1px;
+}
+
+#undo-actions-list li {
+    cursor: pointer;
+}
+
+#undo-actions-list .insert {
+    background-color: rgba(92, 184, 92, 0.20);
+}
+
+#undo-actions-list .update {
+    background-color: rgba(240, 173, 78, 0.20);
+}
+
+#undo-actions-list .remove {
+    background-color: rgba(217, 83, 79, 0.20);
+}
+
+/* END OF UNDO BUTTON */
+
+/* PROFILE PICTURE */
+
+#profile-picture {
+    float: right;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 10px;
+}
+
+#profile-picture img {
+    width: 33px;
+}
+
+/* END PROFILE PICTURE */
+
+/* LOGIN BUTTONS */
+
+#login-button-container {
+    float: right;
+    margin: 0 10px;
+}
+
+#login-buttons .login-image {
+    top: 9px;
+}
+
+#login-buttons .login-button {
+    font-size: 14px;
+    padding: 6px 12px;
+}
+
+/* END OF LOGIN BUTTONS */
+
+/* END OF NAVIGATION */
+
+@media screen and (min-width: 1000px) {
+    #stats-button-container {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    #login-buttons .login-display-name {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #navigation-container {
+        padding: 5px 0;
+    }
+
+    #profile-picture {
+        display: none;
+    }
+}

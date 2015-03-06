@@ -1,0 +1,26 @@
+/* CONTENT */
+
+.page {
+    padding: 0 20px;
+    display: none;
+}
+
+.page.open {
+    display: block;
+}
+
+/* END OF CONTENT */
+
+@media screen and (min-width: 1000px) {
+    .page {
+        display: block;
+        float: left;
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .page {
+        padding: 0;
+    }
+}

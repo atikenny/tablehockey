@@ -1,0 +1,48 @@
+/* STATS */
+
+#stats-container .stats-title {
+    padding: 10px 20px;
+}
+
+#stats-container .stats-table-container {
+    padding: 20px;
+}
+
+.stats-table-container td,
+.stats-table-container th {
+    text-align: center;
+}
+
+.stats-table-container td:first-child,
+.stats-table-container th:first-child {
+    text-align: left;
+}
+
+.players-and-team-flag {
+    position: relative;
+}
+
+.players-and-team-flag .flag-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 48px;
+}
+
+/* END OF STATS */
+
+@media screen and (min-width: 1000px), screen and (max-width: 750px) {
+    #team-stats-container .player-names {
+        display: none;
+    }
+
+    .stats-table-container .players-and-team-flag {
+        padding: 0px;
+    }
+
+    .players-and-team-flag .flag-bg {
+        position: relative;
+        top: auto;
+        right: auto;
+    }
+}

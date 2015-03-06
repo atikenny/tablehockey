@@ -1,0 +1,62 @@
+body {
+    background-color: rgb(229, 229, 229);
+    position: relative;
+    min-width: 380px;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+button,
+.btn, .btn:focus, .btn:active, .btn:hover,
+.btn.active, .btn.active:focus, .btn.active:active, .btn.active:hover {
+    outline: none;
+}
+
+button.clean {
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+}
+
+[disabled] {
+    pointer-events: none;
+}
+
+.btn {
+    opacity: 1;
+    transition: all .2s linear;
+}
+
+.btn.disabled {
+    opacity: .2;
+}
+
+.fifty {
+    float: left;
+    width: 50%;
+}
+
+.card {
+    border: 1px solid #d8d8d8;
+    border-bottom-width: 2px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 750px) {
+    .card {
+        margin-bottom: 0;
+        border-width: 1px 1px 0 1px;
+    }
+}
