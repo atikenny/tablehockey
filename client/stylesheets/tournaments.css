@@ -40,6 +40,8 @@
 
 #tournaments-config-container .flag-bg {
     width: 59px;
+    position: absolute;
+    top: 0;
     left: 0;
     right: auto;
 }
