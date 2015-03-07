@@ -34,7 +34,7 @@
 }
 
 #tournaments-config-container .players-and-team-flag {
-    padding: 12px 12px 12px 80px;
+    padding: 12px 36px 12px 80px;
     line-height: 1.42857143;
 }
 
@@ -44,6 +44,15 @@
     top: 0;
     left: 0;
     right: auto;
+}
+
+.tournament-team:hover {
+    background-color: #efefef;
+}
+
+#tournament-teams .delete-button {
+    top: 10px;
+    right: 12px;
 }
 
 /* END OF TOURNAMENTS */

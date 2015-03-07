@@ -15,12 +15,6 @@
     opacity: 1;
 }
 
-.delete-button {
-    position: absolute;
-    top: 3px;
-    right: 10px;
-}
-
 .lock-button {
     position: absolute;
     opacity: .2;

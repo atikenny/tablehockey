@@ -42,6 +42,12 @@ button.clean {
     opacity: .2;
 }
 
+.delete-button {
+    position: absolute;
+    top: 3px;
+    right: 10px;
+}
+
 .fifty {
     float: left;
     width: 50%;
