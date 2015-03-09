@@ -7,3 +7,14 @@ Template.tournaments_config.helpers({
         });
 	}
 });
+
+Template.tournaments_config.events({
+	'click .delete-button': function () {
+        var activeTournament = Tournaments.findOne({ name: Session.get('activeTournament') }),
+            teamNameToDelete = this.name;
+
+        Tournaments.update(activeTournament._id, {
+            $pull: { teams: teamNameToDelete }
+        });
+    }
+});

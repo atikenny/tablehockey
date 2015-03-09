@@ -1,3 +1,8 @@
 <template name="tournament">
-    <li class="tournament {{#if selected}}selected{{/if}}">{{name}}</li>
+    <li class="tournament {{#if selected}}selected{{/if}}">
+        <span class="tournament-name" contentEditable="true">{{name}}</span>
+        <button type="button" class="delete-button close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </li>
 </template>

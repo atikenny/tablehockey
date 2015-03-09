@@ -211,7 +211,7 @@ Results.allow({
 });
 
 Tournaments.allow({
-    insert: function(userId) {
+    insert: function(userId, tournament) {
         return !!userId;
     },
     update: function(userId) {

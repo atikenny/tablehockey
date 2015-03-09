@@ -77,12 +77,7 @@ function undoResultsInsert(resultObject) {
 }
 
 function getNewResult() {
-    var teams = Teams.find({
-            name: {
-                $in: getActiveTournamentTeams()
-            }
-        }).fetch(),
-        now = new Date(),
+    var now = new Date(),
         year = now.getFullYear(),
         month = ('0' + parseInt(now.getMonth() + 1)).slice(-2),
         day = ('0' + now.getDate()).slice(-2),
@@ -93,18 +88,12 @@ function getNewResult() {
     return {
         date: date,
         team1: {
-            player1: teams[0].players[0],
-            player2: teams[0].players[1],
             score: 0,
-            won: false,
-            nationality: teams[0].code
+            won: false
         },
         team2: {
-            player1: teams[1].players[0],
-            player2: teams[1].players[1],
             score: 0,
-            won: false,
-            nationality: teams[1].code
+            won: false
         },
         ended: false,
         tournament: Session.get('activeTournament')
@@ -119,7 +108,7 @@ Template.navigation.helpers({
         return Session.get('undoResults').length === 0;
     },
     noNew: function () {
-        return Session.get('shownContent') != 'results';
+        return Session.get('shownContent') != 'results' && Session.get('activeTournament');
     },
     undoResults: function () {
         return Session.get('undoResults').slice(-10).reverse();

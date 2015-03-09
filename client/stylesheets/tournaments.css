@@ -12,10 +12,20 @@
     white-space: nowrap;
 }
 
-.tournament {
+#tournaments li {
     display: inline-block;
-    padding: 10px 20px;
     cursor: pointer;
+    padding: 10px 20px;
+}
+
+#tournaments .tournament {
+    position: relative;
+    padding-right: 34px;
+}
+
+#tournaments .delete-button {
+    top: 9px;
+    right: 12px;
 }
 
 .tournament.selected,
@@ -24,9 +34,20 @@
     color: #fff;
 }
 
+#addTournamentButton {
+    color: #fff;
+    background-color: #5cb85c;
+    opacity: .2;
+    transition: opacity .2s linear;
+}
+
+#addTournamentButton:hover {
+    opacity: 1;
+}
+
 #tournaments-config-container {
     display: none;
-    border-top: 1px solid #d8d8d8;
+    border-top: 4px solid #5cb85c;
     background-color: #fff;
 }
 

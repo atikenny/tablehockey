@@ -1,7 +1,6 @@
 defaultContent = 'results';
 
 Session.setDefault('shownContent', defaultContent);
-Session.setDefault('activeTournament', 'round two');
 Session.setDefault('undoResults', []);
 
 getActiveTournamentTeams = function () {

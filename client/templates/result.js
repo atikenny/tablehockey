@@ -27,15 +27,15 @@ Template.result.rendered = function () {
 };
 
 Template.result.events({
-    "click .delete-button": function() {
+    'click .delete-button': function() {
         addToResultsUndo('remove', this);
 
         Results.remove(this._id);
     },
-    "click .players-button": function(event, template) {
+    'click .players-button': function(event, template) {
         template.$('.teams-container').toggleClass('open');
     },
-    "change [name='score1']": function(event) {
+    'change [name="score1"]': function(event) {
         var team1Score = +($(event.currentTarget).val()),
             team1Won = team1Score > this.team2.score,
             team2Won = team1Score < this.team2.score,
@@ -44,14 +44,14 @@ Template.result.events({
         addToResultsUndo('update', this);
         Results.update(this._id, {
             $set: {
-                "team1.score": team1Score,
-                "team1.won": team1Won,
-                "team2.won": team2Won,
+                'team1.score': team1Score,
+                'team1.won': team1Won,
+                'team2.won': team2Won,
                 ended: !!ended
             }
         });
     },
-    "change [name='score2']": function(event) {
+    'change [name="score2"]': function(event) {
         var team2Score = +($(event.currentTarget).val()),
             team1Won = team2Score < this.team1.score,
             team2Won = team2Score > this.team1.score,
@@ -60,14 +60,14 @@ Template.result.events({
         addToResultsUndo('update', this);
         Results.update(this._id, {
             $set: {
-                "team2.score": team2Score,
-                "team1.won": team1Won,
-                "team2.won": team2Won,
+                'team2.score': team2Score,
+                'team1.won': team1Won,
+                'team2.won': team2Won,
                 ended: !!ended
             }
         });
     },
-    "change [name='date']": function(event) {
+    'change [name="date"]': function(event) {
         var date = $(event.currentTarget).val();
 
         if (date !== this.date) {
@@ -75,7 +75,7 @@ Template.result.events({
             Results.update(this._id, {$set: {"date": date}});
         }
     },
-    "click .team": function(event, template) {
+    'click .team': function(event, template) {
         var teamName = event.target.dataset.teamName,
             teamNumber = event.target.dataset.teamNumber,
             teamObjectSelector = 'team' + teamNumber,
@@ -94,7 +94,7 @@ Template.result.events({
         template.$('[data-team-number="' + teamNumber + '"]').removeClass('selected');
         event.target.classList.add('selected');
     },
-    "click .lock-button": function() {
+    'click .lock-button': function() {
         Results.update(this._id, {
             $set: {
                 locked: !this.locked

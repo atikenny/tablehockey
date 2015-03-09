@@ -1,15 +1,15 @@
 <template name="tournaments_config">
     <div id="tournaments-config-container">
-    	<ul id="tournament-teams">
-	        {{#each teams}}
-	        <li class="tournament-team players-and-team-flag">
-	            <img class="flag-bg" src="/img/flags/{{code}}.svg" />
-	        	<div class="player-names">{{players}}</div>
-	        	<button type="button" class="delete-button close">
-	        		<span aria-hidden="true">&times;</span>
-	        	</button>
-	        </li>
-	        {{/each}}
+        <ul id="tournament-teams">
+            {{#each teams}}
+            <li class="tournament-team players-and-team-flag">
+                <img class="flag-bg" src="/img/flags/{{code}}.svg" />
+                <div class="player-names">{{players}}</div>
+                <button type="button" class="delete-button close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </li>
+            {{/each}}
         </ul>
     </div>
 </template>

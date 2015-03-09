@@ -1,3 +1,12 @@
+function setActiveTournamentToInserted() {
+    var tournaments = Tournaments.find().fetch(),
+        lastTournament = tournaments && tournaments.pop();
+
+    if (lastTournament.name !== Session.get('activeTournament')) {
+        Session.set('activeTournament', lastTournament.name);
+    }
+}
+
 Template.tournaments.helpers({
     tournaments: function() {
         return Tournaments.find();
@@ -7,13 +16,17 @@ Template.tournaments.helpers({
     }
 });
 
-Template.tournaments.events({
-    'click .delete-button': function () {
-        var activeTournament = Tournaments.findOne({ name: Session.get('activeTournament') }),
-            teamNameToDelete = this.name;
+Template.tournaments.rendered = function () {
+    var tournaments = Tournaments.find().fetch(),
+        firstTournament = tournaments && tournaments[0];
 
-        Tournaments.update(activeTournament._id, {
-            $pull: { teams: teamNameToDelete }
-        });
+    if (!Session.get('activeTournament') && firstTournament) {
+        Session.set('activeTournament', firstTournament.name);
+    }
+};
+
+Template.tournaments.events({
+    'click #addTournamentButton': function () {
+        Meteor.call('newTournament', setActiveTournamentToInserted);
     }
 });

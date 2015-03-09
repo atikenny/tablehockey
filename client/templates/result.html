@@ -15,13 +15,17 @@
                     <div class="score-container fifty input-group">
                         <input type="tel" name="score1" value="{{team1.score}}" class="form-control score" />
                         <div class="flag-container input-group-addon">
+                            {{#if team1.nationality}}
                             <img class="team-flag" src="/img/flags/{{team1.nationality}}.svg" />
+                            {{/if}}
                         </div>
                     </div>
                     <div class="score-container fifty input-group">
                         <input type="tel" name="score2" value="{{team2.score}}" class="form-control score" />
                         <div class="flag-container input-group-addon">
+                            {{#if team2.nationality}}
                             <img class="team-flag" src="/img/flags/{{team2.nationality}}.svg" />
+                            {{/if}}
                         </div>
                     </div>
                 </div>

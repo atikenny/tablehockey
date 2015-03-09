@@ -1,7 +1,9 @@
 <template name="tournaments">
     <div id="tournaments-container" class="{{#if show}}open{{/if}}">
-        <ul>
-            {{#each tournaments}}{{> tournament}}{{/each}}
+        <ul id="tournaments">
+            {{#each tournaments}}{{> tournament}}{{/each}}<li id="addTournamentButton">
+                <span class="glyphicon glyphicon-plus"></span>
+            </li>
         </ul>
         {{> tournaments_config}}
     </div>
