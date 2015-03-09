@@ -8,11 +8,12 @@
 }
 
 #tournaments-container ul {
-    overflow: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .tournament {
-    float: left;
+    display: inline-block;
     padding: 10px 20px;
     cursor: pointer;
 }

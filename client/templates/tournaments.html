@@ -1,9 +1,7 @@
 <template name="tournaments">
     <div id="tournaments-container" class="{{#if show}}open{{/if}}">
         <ul>
-            {{#each tournaments}}
-            {{> tournament}}
-            {{/each}}
+            {{#each tournaments}}{{> tournament}}{{/each}}
         </ul>
         {{> tournaments_config}}
     </div>
