@@ -2,10 +2,12 @@ function setActiveTournamentToLast() {
     var tournaments = Tournaments.find().fetch(),
         lastTournament = tournaments && tournaments.pop();
 
-    if (lastTournament.name !== Session.get('activeTournament')) {
+    if (lastTournament && lastTournament.name !== Session.get('activeTournament')) {
         Session.set('activeTournament', lastTournament.name);
     }
 }
+
+Meteor.subscribe('tournaments', null, setActiveTournamentToLast);
 
 Template.tournaments.helpers({
     tournaments: function() {
@@ -15,8 +17,6 @@ Template.tournaments.helpers({
         return Session.get('shownContent') === 'tournaments';
     }
 });
-
-Template.tournaments.rendered = setActiveTournamentToLast;
 
 Template.tournaments.events({
     'click #addTournamentButton': function () {
