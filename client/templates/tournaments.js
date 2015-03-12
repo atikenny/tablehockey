@@ -1,4 +1,4 @@
-function setActiveTournamentToInserted() {
+function setActiveTournamentToLast() {
     var tournaments = Tournaments.find().fetch(),
         lastTournament = tournaments && tournaments.pop();
 
@@ -16,17 +16,10 @@ Template.tournaments.helpers({
     }
 });
 
-Template.tournaments.rendered = function () {
-    var tournaments = Tournaments.find().fetch(),
-        firstTournament = tournaments && tournaments[0];
-
-    if (!Session.get('activeTournament') && firstTournament) {
-        Session.set('activeTournament', firstTournament.name);
-    }
-};
+Template.tournaments.rendered = setActiveTournamentToLast;
 
 Template.tournaments.events({
     'click #addTournamentButton': function () {
-        Meteor.call('newTournament', setActiveTournamentToInserted);
+        Meteor.call('newTournament', setActiveTournamentToLast);
     }
 });
