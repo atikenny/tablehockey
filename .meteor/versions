@@ -17,6 +17,7 @@ deps@1.0.6
 ejson@1.0.5
 fastclick@1.0.2
 follower-livedata@1.0.3
+fourseven:scss@2.0.1_2
 geojson-utils@1.0.2
 google@1.1.4
 html-tools@1.0.3
