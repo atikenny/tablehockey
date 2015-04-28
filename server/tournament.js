@@ -12,11 +12,15 @@ Meteor.methods({
     	var placeholderName = 'new tournament',
     		palceholderTournament = Tournaments.findOne({
     			name: placeholderName
-    		});
+    		}),
+            allTeams = Teams.find().fetch().map(function (team) {
+                return team.name;
+            });
 
     	if (!palceholderTournament) {
     		Tournaments.insert({
-    			name: placeholderName
+    			name: placeholderName,
+                teams: allTeams
     		});
     	}
     }
