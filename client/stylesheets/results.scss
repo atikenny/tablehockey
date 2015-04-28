@@ -93,36 +93,16 @@
     background-position: center center;
     background-repeat: no-repeat;
     position: relative;
-}
 
-.team:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(245, 245, 245, .9);
-}
-
-.team:after {
-    opacity: 0;
-    content: '';
-    position: absolute;
-    bottom: -34px;
-    left: -9999em;
-    width: 0;
-    height: 0;
-    margin: -12px 0 0 -6px;
-    border: 6px solid transparent;
-    border-bottom-color: #fff;
-    transition: opacity .2s ease-out, bottom .2s ease-out;
-}
-
-.team:hover:after {
-    left: 50%;
-    opacity: 1;
-    bottom: -14px;
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(245, 245, 245, .9);
+    }
 }
 
 .winner .team:before {
@@ -133,37 +113,9 @@
     background: rgba(245,245,245,0);
 }
 
-.team span {
-    opacity: 0;
-    position: absolute;
-    bottom: -55px;
-    left: -9999em;
-    z-index: 100;
-    background: #fff;
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .4);
-    border-radius: 3px;
-    white-space: nowrap;
-    padding: 2px 5px;
-    font-size: 12px;
-    transition: opacity .2s ease-out, bottom .2s ease-out;
-}
-
-.team:hover span {
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 1;
-    bottom: -35px;
-}
-
 .team:nth-last-child(-n+3):hover span {
     left: auto;
     right: 0;
-    transform: none;
-}
-
-.team:nth-child(-n+3):hover span {
-    right: auto;
-    left: 0;
     transform: none;
 }
 

@@ -1,6 +1,6 @@
 <template name="stats">
     <div id="stats-container" class="page {{#if show}}open{{/if}}">
-        <div id="team-stats-container" class="stat-container card table-responsive">
+        <div id="team-stats-container" class="stat-container card">
             <h2 class="stats-title bg-primary">Team stats</h2>
             <div class="stats-table-container">
                 <table class="table table-striped">
@@ -21,7 +21,10 @@
                         <tr>
                             <td class="players-and-team-flag">
                                 <div class="player-names">{{player1}}{{#if player2}}, {{player2}}{{/if}}</div>
-                                <img class="flag-bg" src="/img/flags/{{team.code}}.svg" />
+                                <div class="team-details-container">
+                                    <img class="flag-bg" src="/img/flags/{{team.code}}.svg" />
+                                    <span class="team-players"><i class="glyphicon glyphicon-flash"></i> {{player1}} <i class="glyphicon glyphicon-record"></i> {{player2}}</span>
+                                </div>
                             </td>
                             <td class="points">{{points}}</td>
                             <td class="goals-for">{{goalsFor}}</td>

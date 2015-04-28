@@ -39,7 +39,7 @@
                         {{#each teams}}
                         <div class="team {{isSelected code ../team1.nationality}}" data-team-number="1" data-team-name="{{name}}">
                             <img class="team-flag" src="/img/flags/{{code}}.svg" />
-                            <span><i class="glyphicon glyphicon-flash"></i> {{player 1 players}} <i class="glyphicon glyphicon-record"></i> {{player 0 players}}</span>
+                            <span class="team-players"><i class="glyphicon glyphicon-flash"></i> {{player 1 players}} <i class="glyphicon glyphicon-record"></i> {{player 0 players}}</span>
                         </div>
                         {{/each}}
                     </div>
@@ -49,7 +49,7 @@
                         {{#each teams}}
                         <div class="team {{isSelected code ../team2.nationality}}" data-team-number="2" data-team-name="{{name}}">
                             <img class="team-flag" src="/img/flags/{{code}}.svg" />
-                            <span><i class="glyphicon glyphicon-flash"></i> {{player 1 players}} <i class="glyphicon glyphicon-record"></i> {{player 0 players}}</span>
+                            <span class="team-players"><i class="glyphicon glyphicon-flash"></i> {{player 1 players}} <i class="glyphicon glyphicon-record"></i> {{player 0 players}}</span>
                         </div>
                         {{/each}}
                     </div>

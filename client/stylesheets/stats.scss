@@ -22,11 +22,14 @@
     position: relative;
 }
 
-.players-and-team-flag .flag-bg {
+.team-details-container {
     position: absolute;
     top: 0;
     right: 0;
-    width: 48px;
+
+    .flag-bg {
+        width: 48px;
+    }
 }
 
 /* END OF STATS */
@@ -38,6 +41,7 @@
 
     .stats-table-container .players-and-team-flag {
         padding: 0px;
+        width: 50px;
     }
 
     .players-and-team-flag .flag-bg {
